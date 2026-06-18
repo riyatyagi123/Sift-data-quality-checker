@@ -1,0 +1,692 @@
+/* Custom Fonts & Base Variables */
+:root {
+  --sift-green: #008060;
+  --sift-green-hover: #00664c;
+  --sift-light-green: #e6f3ef;
+  --sift-dark-blue: #0a2540;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #fcfdfd;
+  overflow-x: hidden;
+}
+
+body,
+main,
+header,
+footer {
+  width: 100%;
+}
+
+main > .max-w-7xl,
+header .max-w-7xl,
+footer .max-w-7xl {
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+main > .max-w-7xl {
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+}
+
+main .space-y-8 > :not([hidden]) ~ :not([hidden]),
+#validationDashboard.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 24px !important;
+}
+
+main .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 20px !important;
+}
+
+main .space-y-5 > :not([hidden]) ~ :not([hidden]),
+#cleanedDashboard.space-y-5 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 20px !important;
+}
+
+main .gap-8 {
+  gap: 20px !important;
+}
+
+main .gap-6 {
+  gap: 18px !important;
+}
+
+main .gap-4 {
+  gap: 16px !important;
+}
+
+.hover-card,
+main [class*="rounded-2xl"],
+main [class*="rounded-3xl"] {
+  max-width: 100%;
+}
+
+main .bg-white[class*="rounded-"],
+main .border[class*="rounded-"] {
+  min-height: 0;
+}
+
+main .h-\[92px\],
+main .h-11,
+main .h-\[42px\] {
+  height: auto !important;
+}
+
+main .h-\[92px\] {
+  min-height: 92px !important;
+}
+
+main .h-11 {
+  min-height: 44px !important;
+}
+
+main .h-\[42px\] {
+  min-height: 42px !important;
+}
+
+main .p-6 {
+  padding: 20px !important;
+}
+
+main .p-5 {
+  padding: 18px !important;
+}
+
+main .p-4 {
+  padding: 14px !important;
+}
+
+main .py-10 {
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+}
+
+main .py-20,
+main .py-24 {
+  padding-top: 48px !important;
+  padding-bottom: 48px !important;
+}
+
+a.inline-flex,
+button.inline-flex,
+main a[href].inline-flex,
+#generateBtn,
+#rerunCleaningBtn {
+  min-width: 140px;
+  max-width: 260px;
+  white-space: nowrap;
+  flex-shrink: 1;
+}
+
+main table {
+  min-width: max-content;
+}
+
+main td,
+main th {
+  white-space: normal;
+}
+
+main td.truncate,
+main td .truncate {
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: normal !important;
+}
+
+main .overflow-x-auto {
+  max-width: 100%;
+}
+
+main thead th,
+main thead tr {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#validationDashboard .custom-scrollbar,
+#cleanedDashboard .custom-scrollbar,
+#previewContainer .custom-scrollbar {
+  max-height: 500px;
+}
+
+.tooltip-fixed {
+  position: fixed !important;
+  inset: auto auto auto auto !important;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: none !important;
+  max-width: min(260px, calc(100vw - 32px)) !important;
+}
+
+/* Typography readability pass */
+main > .max-w-7xl > .space-y-2:first-child h1,
+main > .max-w-7xl > .space-y-1:first-child h1,
+main > .max-w-7xl > .flex:first-child h1 {
+  font-size: 44px !important;
+  line-height: 1.08 !important;
+  font-weight: 700 !important;
+}
+
+h3:where(.text-sm, .text-base),
+h4:where(.text-\[14px\]),
+#validationDashboard .text-sm.font-bold.text-sift-darkblue,
+#cleanedDashboard h3.text-sm,
+#cleanedDashboard h4.text-\[14px\],
+#chunksResults h4.text-sm {
+  font-size: 24px !important;
+  line-height: 1.2 !important;
+  font-weight: 600 !important;
+}
+
+.hover-card :is(span, div):where(.text-\[8px\], .text-\[9px\], .text-\[10px\]).uppercase,
+#cleanedDashboard span:where(.text-\[9px\]).uppercase,
+#validationDashboard span:where(.text-\[10px\], .text-\[9px\]).uppercase {
+  font-size: 13px !important;
+  line-height: 1.25 !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+}
+
+.hover-card h3[id^="clean"],
+#validationDashboard [id^="card"][class*="font-outfit"],
+#cleanedDashboard h3[id^="clean"] {
+  font-size: 36px !important;
+  line-height: 1.05 !important;
+  font-weight: 700 !important;
+}
+
+.hover-card span.block:where(.text-\[9px\], .text-\[10px\], .text-xs):not(.uppercase),
+#validationDashboard p.text-slate-400,
+#cleanedDashboard p.text-slate-400,
+#chunksResults p.text-slate-400,
+#chunksPlaceholder p,
+#chunksLoader p {
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+  font-weight: 500 !important;
+  color: rgb(100 116 139) !important;
+}
+
+#validationDashboard table thead tr,
+#cleanedDashboard table thead tr,
+#previewContainer table thead tr {
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+}
+
+#validationDashboard table tbody,
+#cleanedDashboard table tbody,
+#previewContainer table tbody,
+#chunksList {
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+
+.group > span.pointer-events-none {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  padding: 10px 12px !important;
+}
+
+#validationDashboard h4.font-mono {
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+}
+
+#validationDashboard h4.font-mono + p {
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+
+#validationDashboard [id^="badge"],
+#validationDashboard span[id^="badge"],
+#cleanedDashboard span[class*="rounded-full"],
+#issueLogsRows span[class*="rounded"] {
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+}
+
+#validationDashboard [id^="score"] {
+  font-size: 16px !important;
+  line-height: 1.25 !important;
+}
+
+#validationDashboard div[id^="exp"] span:where(.text-\[8px\], .text-\[9px\]).uppercase,
+#validationDashboard div[id^="exp"] p,
+#validationDashboard div[id^="exp"] div[id$="Examples"],
+#validationDashboard div[id^="exp"] span[id^="reason"] {
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+
+#validationDashboard .space-y-3 .flex.justify-between span:first-child {
+  font-size: 15px !important;
+}
+
+#validationDashboard .space-y-3 .flex.justify-between span:last-child {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+#validationDashboard .space-y-3 p {
+  font-size: 13px !important;
+}
+
+#validationDashboard td .rounded,
+#validationDashboard td span,
+#cleanedDashboard td span {
+  font-size: max(12px, 1em) !important;
+}
+
+#profileColCount,
+#profileDatasetType,
+#statRate,
+#profileDateFormat,
+#profileDateConfidence {
+  font-size: 19px !important;
+  line-height: 1.12 !important;
+  font-weight: 700 !important;
+}
+
+#profileDatasetType,
+#profileDateFormat {
+  font-size: 18px !important;
+  line-height: 1.15 !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+#profileDateFormat {
+  white-space: nowrap !important;
+}
+
+#validationDashboard .grid.grid-cols-2.md\:grid-cols-12 > div {
+  align-items: flex-start !important;
+  font-size: 12px !important;
+  justify-content: flex-start !important;
+}
+
+#validationDashboard .grid.grid-cols-2.md\:grid-cols-12 > div > span:first-child {
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  font-weight: 600 !important;
+}
+
+#validationDashboard .grid.grid-cols-2.md\:grid-cols-12 > div > span:last-child {
+  letter-spacing: 0 !important;
+}
+
+#validationDashboard .flex-grow.space-y-3 .flex.justify-between.text-\[11px\],
+#validationDashboard .flex-grow.space-y-3 .flex.justify-between.text-\[9px\] {
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+}
+
+#validationDashboard .flex-grow.space-y-3 .flex.justify-between.text-\[9px\] {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+#overallScoreText {
+  font-size: 24px !important;
+  line-height: 1 !important;
+}
+
+#overallScoreText + span {
+  font-size: 10px !important;
+  letter-spacing: 0.2px !important;
+}
+
+#completenessDesc,
+#validityDesc,
+#uniquenessDesc {
+  display: block !important;
+  max-width: 112px !important;
+  text-align: right !important;
+}
+
+#completenessDesc,
+#completenessDesc + span,
+#validityDesc,
+#uniquenessDesc {
+  white-space: normal !important;
+}
+
+#completenessDesc,
+#validityDesc,
+#uniquenessDesc,
+#completenessDesc:is(span),
+#validityDesc:is(span),
+#uniquenessDesc:is(span) {
+  justify-self: end !important;
+}
+
+#validationDashboard .flex-grow.space-y-3 .flex.justify-between.text-\[9px\] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(96px, auto) !important;
+  column-gap: 16px !important;
+  align-items: start !important;
+}
+
+#validationDashboard .flex-grow.space-y-3 .flex.justify-between.text-\[9px\] > span:first-child {
+  text-align: left !important;
+}
+
+#validationDashboard .flex-grow.space-y-3 .flex.justify-between.text-\[9px\] > span:last-child {
+  text-align: right !important;
+}
+
+#radarChart {
+  max-width: 180px !important;
+  margin: 0 auto !important;
+}
+
+#radarChart:only-child {
+  display: block !important;
+}
+
+#validationDashboard .my-4:has(#radarChart) {
+  height: 96px !important;
+  padding: 8px !important;
+}
+
+#validationDashboard .grid.grid-cols-2.md\:grid-cols-12 span:first-child {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+#validationDashboard .grid.grid-cols-2.md\:grid-cols-12 {
+  align-items: stretch !important;
+}
+
+#profileColumnsBody,
+#profileColumnsBody td {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+}
+
+#profileColumnsBody span.rounded {
+  font-size: 11px !important;
+}
+
+#validationDashboard .grid.grid-cols-1.lg\:grid-cols-12 > .hover-card:first-child .text-sm.font-bold.text-sift-darkblue,
+#validationDashboard .grid.grid-cols-1.lg\:grid-cols-12 > .hover-card:nth-child(2) .text-sm.font-bold.text-sift-darkblue {
+  font-size: 22px !important;
+}
+
+#validationDashboard > .grid.grid-cols-2.md\:grid-cols-4,
+#cleanedDashboard > .grid,
+#secondaryMetricsSection > .grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+}
+
+#validationDashboard > .grid.grid-cols-2.md\:grid-cols-4 > *,
+#cleanedDashboard > .grid > *,
+#secondaryMetricsSection > .grid > * {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 92px !important;
+}
+
+#validationDashboard > .grid.grid-cols-1.lg\:grid-cols-12 {
+  display: grid !important;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr) !important;
+  gap: 20px !important;
+}
+
+#validationDashboard > .grid.grid-cols-1.lg\:grid-cols-12 > * {
+  grid-column: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+#validationDashboard .grid.grid-cols-2.md\:grid-cols-12 {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+#validationDashboard .grid.grid-cols-2.md\:grid-cols-12 > div {
+  grid-column: auto !important;
+  min-width: 0 !important;
+  min-height: 88px !important;
+}
+
+#profileDatasetType,
+#profileDateFormat {
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+#validationDashboard .grid.grid-cols-1.gap-4 > [id^="card"] {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+#validationDashboard [id^="card"][style*="max-height"] > .cursor-pointer {
+  height: auto !important;
+  min-height: 42px !important;
+  gap: 16px !important;
+}
+
+#validationDashboard [id^="card"][style*="max-height"] h4,
+#validationDashboard [id^="card"][style*="max-height"] p,
+#validationDashboard [id^="card"][style*="max-height"] span {
+  min-width: 0;
+}
+
+#validationDashboard [id^="card"][style*="max-height"] .flex-shrink-0 {
+  flex-shrink: 1 !important;
+}
+
+#validationDashboard [id^="card"][style*="max-height"] .space-x-4 {
+  column-gap: 12px !important;
+}
+
+#validationDashboard [id^="card"][style*="max-height"] div[id^="exp"] .grid {
+  gap: 16px !important;
+}
+
+#validationDashboard #issueLogsSection .overflow-x-auto,
+#previewContainer .overflow-x-auto {
+  max-height: 500px;
+  overflow: auto;
+}
+
+#validationDashboard .border:has(#profileColumnsBody) {
+  max-height: 500px;
+  overflow: auto;
+}
+
+#cleanedDashboard .max-h-96 {
+  max-height: 500px !important;
+}
+
+@media (max-width: 1400px) {
+  #validationDashboard > .grid.grid-cols-2.md\:grid-cols-4,
+  #cleanedDashboard > .grid,
+  #secondaryMetricsSection > .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  main > .max-w-7xl,
+  header .max-w-7xl,
+  footer .max-w-7xl {
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  #validationDashboard > .grid.grid-cols-2.md\:grid-cols-4,
+  #cleanedDashboard > .grid,
+  #secondaryMetricsSection > .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  #validationDashboard > .grid.grid-cols-1.lg\:grid-cols-12 {
+    grid-template-columns: 1fr !important;
+  }
+
+  #validationDashboard .grid.grid-cols-2.md\:grid-cols-12 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  main > .max-w-7xl,
+  header .max-w-7xl,
+  footer .max-w-7xl {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  #validationDashboard > .grid.grid-cols-2.md\:grid-cols-4,
+  #cleanedDashboard > .grid,
+  #secondaryMetricsSection > .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  #validationDashboard .grid.grid-cols-2.md\:grid-cols-12 {
+    grid-template-columns: 1fr !important;
+  }
+
+  #validationDashboard [id^="card"][style*="max-height"] > .cursor-pointer {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+
+  #validationDashboard [id^="card"][style*="max-height"] > .cursor-pointer > .flex:last-child {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  a.inline-flex,
+  button.inline-flex,
+  main button,
+  main a[href].inline-flex {
+    max-width: 100%;
+  }
+}
+
+@media (max-height: 820px) and (min-width: 1024px) {
+  main > .max-w-7xl {
+    padding-top: 16px !important;
+    padding-bottom: 18px !important;
+  }
+
+  #validationDashboard.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 20px !important;
+  }
+
+  #validationDashboard > .grid.grid-cols-1.lg\:grid-cols-12 > .hover-card {
+    padding: 18px !important;
+  }
+
+  #validationDashboard > .grid.grid-cols-1.lg\:grid-cols-12 .my-6 {
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+  }
+
+  #validationDashboard .my-4:has(#radarChart) {
+    height: 86px !important;
+  }
+}
+
+[class*="text-[8px]"],
+[class*="text-[9px]"],
+[class*="text-[10px]"],
+[class*="text-[11px]"] {
+  font-size: 12px !important;
+}
+
+@media (max-width: 640px) {
+  main > .max-w-7xl > .space-y-2:first-child h1,
+  main > .max-w-7xl > .space-y-1:first-child h1,
+  main > .max-w-7xl > .flex:first-child h1 {
+    font-size: 38px !important;
+  }
+}
+
+/* Subtle Grid Background Pattern */
+.bg-grid {
+  background-size: 30px 30px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 128, 96, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 128, 96, 0.02) 1px, transparent 1px);
+  background-position: center top;
+}
+
+/* Custom Hover & Card Transitions */
+.hover-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.04), 0 8px 16px -6px rgba(0, 0, 0, 0.04);
+}
+
+/* Drag and Drop Zone Custom Style */
+.dashed-dropzone {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(230, 243, 239, 0.3) 100%);
+  border: 2px dashed #a7f3d0;
+  transition: all 0.3s ease;
+}
+
+.dashed-dropzone.dragover {
+  border-color: #008060;
+  background: rgba(230, 243, 239, 0.7);
+  transform: scale(0.995);
+}
+
+/* Standardized Buttons and Badges */
+.btn-sift-primary {
+  background-color: var(--sift-green);
+  color: white;
+  transition: all 0.2s ease;
+}
+.btn-sift-primary:hover {
+  background-color: var(--sift-green-hover);
+}
+
+/* Animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* Custom Scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

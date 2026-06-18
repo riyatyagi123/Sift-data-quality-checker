@@ -1,0 +1,4 @@
+order_id,mobile,country,payment_method,amount,order_date
+ORD-104,12345,United States,Wallet,25,2026-06-16
+ORD-105,2025550192,United States,COD,-10,2026-06-16
+ORD-106,0501234567,UAE,Unknown_Mode,200,2026-06-16

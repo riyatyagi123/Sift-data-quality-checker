@@ -1,0 +1,51 @@
+id,country,phone_number,expected_result,notes
+1,India,9876543210,VALID,Standard Indian number
+2,India,+919876543210,VALID,Indian with country code
+3,India,91 9876543210,VALID,Indian with prefix and space
+4,India,+91 98765 43210,VALID,Indian formatted with spaces
+5,India,09876543210,INVALID,Leading zero not allowed
+6,India,1234567890,INVALID,Starts with 1
+7,India,98765,INVALID,Too short
+8,India,,INVALID,Missing value
+9,Singapore,81234567,VALID,Standard Singapore number
+10,Singapore,6581234567,VALID,Singapore with country code
+11,Singapore,+6581234567,VALID,Singapore international
+12,Singapore,71234567,INVALID,Invalid starting digit
+13,Singapore,8123456,INVALID,Too short
+14,USA,2025550183,VALID,Standard US number
+15,USA,12025550183,VALID,US with country code
+16,USA,+12025550183,VALID,US international
+17,USA,0000000000,INVALID,Area code invalid
+18,USA,1234567890,INVALID,Area code starts with 1
+19,USA,202555018,INVALID,Too short
+20,UK,07911123456,VALID,Standard UK mobile
+21,UK,447911123456,VALID,UK with country code
+22,UK,+447911123456,VALID,UK international
+23,UK,7911123456,INVALID,Missing leading zero
+24,UK,07123,INVALID,Too short
+25,Australia,0491570156,VALID,Standard Australian mobile
+26,Australia,61491570156,VALID,Australia with country code
+27,Australia,+61491570156,VALID,Australia international
+28,Australia,491570156,INVALID,Missing leading zero
+29,Australia,04123,INVALID,Too short
+30,UAE,0501234567,VALID,Standard UAE mobile
+31,UAE,971501234567,VALID,UAE with country code
+32,UAE,+971501234567,VALID,UAE international
+33,UAE,501234567,INVALID,Missing leading zero
+34,UAE,05012345,INVALID,Too short
+35,Germany,+491701234567,WARNING,Unsupported country
+36,France,+33612345678,WARNING,Unsupported country
+37,Canada,+14165550123,WARNING,Unsupported country
+38,Brazil,+5511999999999,WARNING,Unsupported country
+39,India,9876543210,VALID,Duplicate candidate
+40,India,9876543210,VALID,Duplicate candidate
+41,India,  +91 98765 43210  ,VALID,Leading and trailing spaces
+42,India,98765-43210,VALID,Hyphen formatting
+43,India,(98765)43210,VALID,Bracket formatting
+44,India,९८७६५४३२१०,INVALID,Unicode digits
+45,India,abcdefghij,INVALID,Alphabetic
+46,India,987654321O,INVALID,Letter O instead of zero
+47,India,999999999999999,INVALID,Too long
+48,India,,INVALID,String null
+49,India,,INVALID,String undefined
+50,India,,INVALID,Not available

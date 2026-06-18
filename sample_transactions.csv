@@ -1,0 +1,7 @@
+transaction_id,customer_id,country,phone_number,transaction_date,amount,currency,payment_mode,email
+TXN001,CUST101,USA,4155552671,2026-06-15,150.00,USD,Credit Card,cust1@gmail.com
+TXN001,CUST102,India,9876543210,2026-06-15,99.99,INR,UPI,cust2@gmail.com
+TXN003,CUST103,Singapore,1234,2026-06-15,10.50,SGD,Wallet,invalid-email
+TXN004,CUST104,USA,4155552671,2026-06-15,-50.00,XYZ,InvalidMode,cust4@gmail.com
+TXN005,CUST105,Australia,4155552671,2026-06-15,,AUD,Card,cust5@gmail.com
+TXN006,CUST106,UAE,501234567,invalid-date,75.00,AED,Bank Transfer,cust6@gmail.com

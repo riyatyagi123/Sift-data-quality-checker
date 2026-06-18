@@ -1,0 +1,517 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
+    
+    <!-- Top Header -->
+    <div class="space-y-1">
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Step 3 of 4</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold font-outfit text-sift-darkblue">Cleaned output</h1>
+        <p class="text-slate-500 text-xs max-w-2xl">
+            Your dataset has been processed. Review the detailed corrections, download the output files, or split it into chunks below.
+        </p>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="cleaningLoader" class="flex flex-col items-center justify-center py-10 space-y-3 bg-white border border-slate-100 rounded-3xl shadow-sm">
+        <div class="w-10 h-10 rounded-full border-4 border-slate-100 border-t-emerald-600 animate-spin"></div>
+        <div class="text-center">
+            <h3 class="text-base font-bold text-sift-darkblue">Applying cleaning engine...</h3>
+            <p class="text-[11px] text-slate-400">Standardizing fields, imputing missing values, removing duplicates and empty rows</p>
+        </div>
+    </div>
+
+    <!-- Cleaned Dashboard Container -->
+    <div id="cleanedDashboard" class="hidden space-y-5">
+        
+        <!-- Large Banner/Card -->
+        <div class="bg-gradient-to-r from-emerald-500/5 to-teal-500/10 border border-emerald-500/20 rounded-3xl py-[18px] px-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm shadow-emerald-50/20">
+            <div class="flex items-center space-x-6 text-left">
+                <div class="w-12 h-12 rounded-full bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div class="space-y-1">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        <svg class="w-2 h-2 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        CLEANING COMPLETE
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-sift-darkblue font-outfit">Your cleaned file is ready</h2>
+                    <p class="text-xs font-semibold text-slate-400 flex flex-wrap gap-x-2 gap-y-1 items-center">
+                        <span>Processed: <span id="bannerProcessed" class="text-sift-darkblue font-extrabold">0</span></span>
+                        <span>&bull;</span>
+                        <span>Retained: <span id="bannerRetained" class="text-emerald-600 font-extrabold">0</span></span>
+                        <span>&bull;</span>
+                        <span>Removed: <span id="bannerRemoved" class="text-rose-500 font-extrabold">0</span></span>
+                        <span>&bull;</span>
+                        <span>Corrected: <span id="bannerCorrected" class="text-amber-500 font-extrabold">0</span></span>
+                        <span>&bull;</span>
+                        <span>Retention: <span id="bannerRetentionRate" class="text-indigo-600 font-extrabold">0%</span></span>
+                        <span>&bull;</span>
+                        <span>Correction: <span id="bannerCorrectionRate" class="text-purple-600 font-extrabold">0%</span></span>
+                        <span>&bull;</span>
+                        <span id="bannerDateProfile" class="text-slate-500 font-bold">Date Format: <span id="dateFormatInfo" class="text-emerald-700 font-bold">No date columns detected</span><span id="dateConfidenceWrapper"> (<span id="dateConfidenceInfo">0%</span> confidence)</span></span>
+                    </p>
+                </div>
+            </div>
+            <a href="{{ url_for('cleaning.download_cleaned') }}" class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white bg-sift-green rounded-xl hover:bg-emerald-800 shadow-md shadow-emerald-100 hover:shadow transition-all w-full md:w-auto">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                <span>Download Cleaned CSV</span>
+            </a>
+        </div>
+
+        <!-- Strategy Selector & Rerun -->
+        <div class="bg-white border border-slate-100 rounded-3xl py-3.5 px-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 hover-card">
+            <div class="space-y-1">
+                <h3 class="text-sm font-bold text-sift-darkblue font-outfit">Cleaning Strategy</h3>
+                <p class="text-slate-400 text-xs font-medium">Select STRICT, SMART, or SOFT strategy to process errors and warnings.</p>
+            </div>
+            <div class="flex items-center space-x-3 w-full sm:w-auto">
+                <select id="cleaningModeSelect" class="bg-slate-50 border border-slate-200 text-sift-darkblue font-semibold text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                    <option value="SMART" {% if session.get('cleaning_mode') == 'SMART' or not session.get('cleaning_mode') %}selected{% endif %}>SMART (Fix & Retain - Default)</option>
+                    <option value="STRICT" {% if session.get('cleaning_mode') == 'STRICT' %}selected{% endif %}>STRICT (Remove All Invalid Rows)</option>
+                    <option value="SOFT" {% if session.get('cleaning_mode') == 'SOFT' %}selected{% endif %}>SOFT (Retain & Annotate Status)</option>
+                </select>
+                <button id="rerunCleaningBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl px-5 py-3 transition-all flex items-center space-x-2 shadow-md shadow-emerald-100">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.5"/>
+                    </svg>
+                    <span>Re-run</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Primary Metric Grid (6 cards) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            <!-- Rows Processed -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative">
+                <div class="space-y-1">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Rows Processed</span>
+                    <h3 id="cleanTotal" class="text-2xl font-extrabold text-slate-800 font-outfit">0</h3>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-500">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                    </svg>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-2 right-2 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Total number of rows received before cleaning.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Rows Retained -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative">
+                <div class="space-y-1">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Rows Retained</span>
+                    <h3 id="cleanRetained" class="text-2xl font-extrabold text-emerald-600 font-outfit">0</h3>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-2 right-2 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Rows preserved in the final cleaned dataset.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Rows Removed -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative">
+                <div class="space-y-1">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Rows Removed</span>
+                    <h3 id="cleanRemoved" class="text-2xl font-extrabold text-rose-500 font-outfit">0</h3>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-500">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-2 right-2 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Rows discarded because they could not be repaired.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Rows Corrected -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative">
+                <div class="space-y-1">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Rows Corrected</span>
+                    <h3 id="cleanCorrected" class="text-2xl font-extrabold text-amber-500 font-outfit">0</h3>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                    </svg>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-2 right-2 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Rows containing at least one automatic repair.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Retention Rate -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative">
+                <div class="space-y-1">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Retention Rate</span>
+                    <h3 id="cleanRetentionRate" class="text-2xl font-extrabold text-indigo-600 font-outfit">0%</h3>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10a2 2 0 01-2 2h-2a2 2 0 01-2-2zm9 0v-9a2 2 0 00-2-2h-2a2 2 0 00-2 2v9a2 2 0 002 2h2a2 2 0 002-2z"/>
+                    </svg>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-2 right-2 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Percentage of original rows retained.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Correction Rate -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative">
+                <div class="space-y-1">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Correction Rate</span>
+                    <h3 id="cleanCorrectionRate" class="text-2xl font-extrabold text-purple-600 font-outfit">0%</h3>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center text-purple-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-2 right-2 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Percentage of rows successfully corrected.
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Secondary / Conditional Metrics Section (Hidden unless value > 0) -->
+        <div id="secondaryMetricsSection" class="hidden space-y-2 mt-4 pt-3 border-t border-slate-100">
+            <div class="space-y-1">
+                <h4 class="text-[14px] font-medium uppercase tracking-wider text-slate-400">Detailed Correction Metrics</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- Phones Fixed -->
+                <div id="cardPhonesFixed" class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative hidden">
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Phones Fixed</span>
+                        <h3 id="cleanPhonesFixed" class="text-2xl font-extrabold text-sift-darkblue font-outfit">0</h3>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                    </div>
+                    <div class="absolute top-2 right-2 cursor-help group">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                        </svg>
+                        <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                            Number of phone numbers standardized to regional format.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Emails Fixed -->
+                <div id="cardEmailsFixed" class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative hidden">
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Emails Fixed</span>
+                        <h3 id="cleanEmailsFixed" class="text-2xl font-extrabold text-sift-darkblue font-outfit">0</h3>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div class="absolute top-2 right-2 cursor-help group">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                        </svg>
+                        <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                            Number of malformed email addresses repaired.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Dates Fixed -->
+                <div id="cardDatesFixed" class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative hidden">
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Dates Fixed</span>
+                        <h3 id="cleanDatesFixed" class="text-2xl font-extrabold text-sift-darkblue font-outfit">0</h3>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div class="absolute top-2 right-2 cursor-help group">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                        </svg>
+                        <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                            Number of transaction dates formatted to standard YYYY-MM-DD.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Currencies Fixed -->
+                <div id="cardCurrenciesFixed" class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative hidden">
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Currencies Fixed</span>
+                        <h3 id="cleanCurrenciesFixed" class="text-2xl font-extrabold text-sift-darkblue font-outfit">0</h3>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="absolute top-2 right-2 cursor-help group">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                        </svg>
+                        <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                            Number of currency fields normalized to standard codes.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Duplicates Removed -->
+                <div id="cardDuplicatesRemoved" class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative hidden">
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Duplicates Removed</span>
+                        <h3 id="cleanDuplicatesRemoved" class="text-2xl font-extrabold text-sift-darkblue font-outfit">0</h3>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                        </svg>
+                    </div>
+                    <div class="absolute top-2 right-2 cursor-help group">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                        </svg>
+                        <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                            Number of duplicate transaction IDs removed.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Imputed Values -->
+                <div id="cardImputed" class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative hidden">
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Imputed Values</span>
+                        <h3 id="cleanImputed" class="text-2xl font-extrabold text-sift-darkblue font-outfit">0</h3>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                    </div>
+                    <div class="absolute top-2 right-2 cursor-help group">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                        </svg>
+                        <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                            Number of missing values filled or imputed.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Success Rate / Cleaning Efficiency -->
+                <div id="cardSuccessRate" class="bg-white border border-slate-100 rounded-2xl p-[18px] h-[92px] shadow-sm flex items-center justify-between hover-card relative hidden">
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Cleaning Efficiency</span>
+                        <h3 id="cleanSuccessRate" class="text-2xl font-extrabold text-emerald-600 font-outfit">0%</h3>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10a2 2 0 01-2 2h-2a2 2 0 01-2-2zm9 0v-9a2 2 0 00-2-2h-2a2 2 0 00-2 2v9a2 2 0 002 2h2a2 2 0 002-2z"/>
+                        </svg>
+                    </div>
+                    <div class="absolute top-2 right-2 cursor-help group">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                        </svg>
+                        <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                            Percentage of data errors resolved automatically.
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Export Center / Output Files -->
+        <div class="bg-white border border-slate-100 rounded-3xl py-3.5 px-6 shadow-sm hover-card space-y-2">
+            <div class="space-y-1 mb-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Export Center</span>
+                <h3 class="text-sm font-bold text-sift-darkblue font-outfit">Download Segmented Output Files</h3>
+                <p class="text-slate-400 text-xs font-medium">Export specific slices of your processed dataset for audit trail or downstream testing.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 pt-1">
+                <a href="{{ url_for('cleaning.download_cleaned') }}" class="flex items-center justify-between px-3 py-2 border border-slate-100 rounded-xl hover:bg-slate-50 transition-all text-sift-darkblue group h-11">
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-bold text-[11px] truncate leading-tight">Cleaned Dataset</span>
+                        <span class="text-[9px] text-slate-400 font-medium truncate leading-tight">Validated records</span>
+                    </div>
+                    <span class="text-[9px] text-emerald-600 font-bold uppercase bg-emerald-50 px-1.5 py-0.5 rounded leading-none flex-shrink-0">CSV</span>
+                </a>
+                <a href="{{ url_for('cleaning.download_errors') }}" class="flex items-center justify-between px-3 py-2 border border-slate-100 rounded-xl hover:bg-slate-50 transition-all text-sift-darkblue group h-11">
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-bold text-[11px] truncate leading-tight">Validation Errors</span>
+                        <span class="text-[9px] text-slate-400 font-medium truncate leading-tight">Rejected rows</span>
+                    </div>
+                    <span class="text-[9px] text-rose-500 font-bold uppercase bg-rose-50 px-1.5 py-0.5 rounded leading-none flex-shrink-0">CSV</span>
+                </a>
+                <a href="{{ url_for('cleaning.download_warnings') }}" class="flex items-center justify-between px-3 py-2 border border-slate-100 rounded-xl hover:bg-slate-50 transition-all text-sift-darkblue group h-11">
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-bold text-[11px] truncate leading-tight">Validation Warnings</span>
+                        <span class="text-[9px] text-slate-400 font-medium truncate leading-tight">Needs review</span>
+                    </div>
+                    <span class="text-[9px] text-amber-500 font-bold uppercase bg-amber-50 px-1.5 py-0.5 rounded leading-none flex-shrink-0">CSV</span>
+                </a>
+                <a href="{{ url_for('cleaning.download_duplicates') }}" class="flex items-center justify-between px-3 py-2 border border-slate-100 rounded-xl hover:bg-slate-50 transition-all text-sift-darkblue group h-11">
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-bold text-[11px] truncate leading-tight">Duplicates</span>
+                        <span class="text-[9px] text-slate-400 font-medium truncate leading-tight">Repeated rows</span>
+                    </div>
+                    <span class="text-[9px] text-indigo-500 font-bold uppercase bg-indigo-50 px-1.5 py-0.5 rounded leading-none flex-shrink-0">CSV</span>
+                </a>
+                <a href="{{ url_for('cleaning.download_audit') }}" class="flex items-center justify-between px-3 py-2 border border-slate-100 rounded-xl hover:bg-slate-50 transition-all text-sift-darkblue group h-11">
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-bold text-[11px] truncate leading-tight">Full Audit Report</span>
+                        <span class="text-[9px] text-slate-400 font-medium truncate leading-tight">JSON history</span>
+                    </div>
+                    <span class="text-[9px] text-slate-500 font-bold uppercase bg-slate-100 px-1.5 py-0.5 rounded leading-none flex-shrink-0">JSON</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Cleaning Log Interactive Table -->
+        <div class="bg-white border border-slate-100 rounded-3xl py-3.5 px-6 shadow-sm hover-card space-y-2 mt-5">
+            <div class="space-y-1">
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Audit Trail</span>
+                <h3 class="text-sm font-bold text-sift-darkblue font-outfit">Interactive Cleaning Log</h3>
+                <p class="text-slate-400 text-xs font-medium">Review the first 1,000 field normalization, standardizations, and values imputed.</p>
+            </div>
+            
+            <!-- Filter & Search Controls -->
+            <div class="flex flex-col md:flex-row gap-3 items-center justify-between pb-2">
+                <!-- Search input -->
+                <div class="relative w-full md:w-72">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </span>
+                    <input type="text" id="auditSearchInput" placeholder="Search rows, fields, actions..." class="w-full pl-9 pr-4 py-2 border border-slate-200 bg-slate-50/50 rounded-xl text-xs font-semibold text-sift-darkblue focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                </div>
+                
+                <!-- Filter Selects -->
+                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
+                    <!-- Severity Filter -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Severity:</span>
+                        <select id="auditSeverityFilter" class="bg-slate-50 border border-slate-200 text-sift-darkblue font-semibold text-[11px] rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="ALL">All Severities</option>
+                            <option value="INFO">INFO</option>
+                            <option value="WARNING">WARNING</option>
+                            <option value="ERROR">ERROR</option>
+                            <option value="CRITICAL">CRITICAL</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Action Filter -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Action:</span>
+                        <select id="auditActionFilter" class="bg-slate-50 border border-slate-200 text-sift-darkblue font-semibold text-[11px] rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500 max-w-[180px]">
+                            <option value="ALL">All Actions</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border border-slate-100 bg-slate-50/30 rounded-xl overflow-hidden shadow-sm flex flex-col">
+                <div class="max-h-96 overflow-y-auto custom-scrollbar">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-400 font-extrabold border-b border-slate-100 uppercase tracking-widest text-[9px] h-11">
+                                <th class="px-4 py-2.5 sticky top-0 bg-slate-50 z-10">Row</th>
+                                <th class="px-4 py-2.5 sticky top-0 bg-slate-50 z-10">Field</th>
+                                <th class="px-4 py-2.5 sticky top-0 bg-slate-50 z-10">Original</th>
+                                <th class="px-4 py-2.5 sticky top-0 bg-slate-50 z-10">Cleaned</th>
+                                <th class="px-4 py-2.5 sticky top-0 bg-slate-50 z-10">Action</th>
+                                <th class="px-4 py-2.5 sticky top-0 bg-slate-50 z-10 text-center">Severity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cleaningLogBody" class="divide-y divide-slate-50 text-slate-600 font-semibold bg-white">
+                            <!-- Populated dynamically -->
+                            <tr>
+                                <td colspan="6" class="px-4 py-8 text-center text-slate-400 italic">No modifications were required for this dataset.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Footer -->
+        <div class="flex justify-end pt-4 border-t border-slate-100">
+            <a href="{{ url_for('chunking.chunk_page') }}" class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-semibold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition-all shadow-md">
+                <span>Proceed to Chunking</span>
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const colMap = {{ session.get('validation_results', {}).get('column_mapping', {}) | tojson }};
+    window.hasDateColumn = !!(colMap && colMap.transaction_date);
+</script>
+<script src="{{ url_for('static', filename='js/clean.js') }}"></script>
+{% endblock %}

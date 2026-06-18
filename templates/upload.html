@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    
+    <!-- Top Header -->
+    <div class="space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Step 1 of 4</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold font-outfit text-sift-darkblue">Upload your transaction file</h1>
+        <p class="text-slate-500 text-sm max-w-2xl">
+            Drop a CSV and we'll parse the headers, preview the first 10 rows, and prepare it for validation.
+        </p>
+    </div>
+
+    <!-- Drag & Drop Zone -->
+    <div id="dropzone" class="dashed-dropzone rounded-3xl p-10 flex flex-col items-center justify-center text-center cursor-pointer relative hover:border-emerald-500 hover:shadow-sm">
+        <input type="file" id="fileInput" accept=".csv" class="hidden">
+        
+        <!-- Upload Icon -->
+        <div class="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 mb-6 shadow-sm shadow-emerald-50/50">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+            </svg>
+        </div>
+        
+        <!-- Drag & Drop Text -->
+        <h3 class="text-xl font-bold text-sift-darkblue mb-1.5">Upload Transaction CSV</h3>
+        <p class="text-slate-400 text-xs mb-6">Drag and drop your CSV file here or click anywhere to browse</p>
+        
+        <!-- Badges Info -->
+        <div class="flex flex-wrap justify-center gap-3 mb-6">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100">
+                <svg class="w-3 h-3 mr-1 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+                CSV supported
+            </span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100">
+                <svg class="w-3 h-3 mr-1 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+                Max file size - 50 MB
+            </span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100">
+                <svg class="w-3 h-3 mr-1 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+                Up to 1M rows
+            </span>
+        </div>
+        
+        <!-- Recommended Columns -->
+        <p class="text-xs text-slate-400 font-medium">
+            Recommended columns: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-600 font-mono text-[11px]">transaction_id, date, amount, currency, phone, country</code>
+        </p>
+    </div>
+
+    <!-- Upload Progress & Status Bar -->
+    <div id="uploadProgressContainer" class="hidden bg-white border border-slate-100 p-6 rounded-2xl shadow-sm space-y-3">
+        <div class="flex justify-between items-center text-xs font-bold text-slate-500 uppercase">
+            <span id="uploadStatusText">Uploading file...</span>
+            <span id="uploadPercent">0%</span>
+        </div>
+        <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+            <div id="uploadProgressBar" class="bg-emerald-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Info Footer (shown before upload) -->
+    <div id="uploadInfoFooter" class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 font-semibold pt-2">
+        <div class="flex items-center space-x-2">
+            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span>Your file is processed in-memory — nothing is persisted on our servers.</span>
+        </div>
+        <div class="mt-2 sm:mt-0">
+            <span>Need an example? </span>
+            <a href="{{ url_for('static', filename='sample_transactions.csv') }}" class="text-sift-green hover:underline inline-flex items-center space-x-0.5">
+                <span>Download sample CSV</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Uploaded Details Card (hidden initially) -->
+    <div id="fileDetailsCard" class="hidden bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+            </div>
+            <div class="space-y-1">
+                <h3 id="detailFilename" class="text-sm font-bold text-slate-700 font-mono">Filename.csv</h3>
+                <div class="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-400">
+                    <span id="detailRows" class="bg-slate-50 border border-slate-100 px-2 py-0.5 rounded">0 rows</span>
+                    <span id="detailCols" class="bg-slate-50 border border-slate-100 px-2 py-0.5 rounded">0 columns</span>
+                    <span id="detailSize" class="bg-slate-50 border border-slate-100 px-2 py-0.5 rounded">0 KB</span>
+                    <span id="detailTime" class="bg-slate-50 border border-slate-100 px-2 py-0.5 rounded">Uploaded 1s ago</span>
+                </div>
+            </div>
+        </div>
+        <span class="inline-flex items-center self-start sm:self-auto px-2.5 py-1 rounded-full text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-100">
+            PARSED
+        </span>
+    </div>
+
+    <!-- Preview Container (hidden initially) -->
+    <div id="previewContainer" class="hidden space-y-4">
+        <div class="flex justify-between items-center">
+            <span class="text-xs font-extrabold tracking-widest text-slate-400 uppercase">Preview</span>
+            <span id="previewStats" class="text-xs font-semibold text-slate-500">Showing 10 of 0 rows</span>
+        </div>
+        
+        <!-- Table Frame -->
+        <div class="border border-slate-100 bg-white rounded-2xl overflow-hidden shadow-sm">
+            <div class="overflow-x-auto custom-scrollbar">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr id="previewHeaders" class="border-b border-slate-100 bg-slate-50 text-slate-400 font-extrabold tracking-wider uppercase">
+                            <!-- Populated via JS -->
+                        </tr>
+                    </thead>
+                    <tbody id="previewRows" class="text-slate-600 font-medium divide-y divide-slate-50">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Action Trigger -->
+        <div class="flex justify-end pt-4">
+            <a href="{{ url_for('validation.validate_page') }}" class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-sift-green rounded-xl hover:bg-emerald-800 transition-all shadow-md shadow-emerald-100 hover:shadow">
+                <span>Proceed to Validation</span>
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

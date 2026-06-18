@@ -1,0 +1,5 @@
+id,transaction_date,expected_result,notes
+18,2099-01-01,WARNING,Future date
+19,1900-01-01,WARNING,Ancient date
+20,1800-01-01,WARNING,Very old date
+38,9999-12-31,VALID,Maximum year

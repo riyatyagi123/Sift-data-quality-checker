@@ -1,0 +1,686 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    /* Scroll Fade In Animation styles */
+    .scroll-fade {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scroll-fade.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="relative overflow-hidden py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            <!-- Left Content Column -->
+            <div class="lg:col-span-7 space-y-8">
+                <!-- Tag pill -->
+                <div class="inline-flex items-center space-x-2 bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-xs font-semibold border border-emerald-100">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                    <span>DATA QUALITY, REIMAGINED</span>
+                </div>
+                
+                <!-- Headline -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-outfit text-sift-darkblue leading-tight tracking-tight">
+                    Validate Transaction Data <br>
+                    <span class="text-sift-green bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">Before It Breaks Your</span> <br>
+                    Workflow
+                </h1>
+                
+                <!-- Description -->
+                <p class="text-lg text-slate-500 max-w-xl leading-relaxed">
+                    Upload transaction datasets, detect data quality issues, generate cleaned files, and split large CSVs automatically — all in one polished pipeline.
+                </p>
+                
+                <!-- CTAs -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                    <a href="{{ url_for('upload.upload_page') }}" class="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-white bg-sift-green rounded-xl hover:bg-emerald-800 shadow-lg shadow-emerald-100 hover:shadow transition-all group">
+                        <span>Upload CSV</span>
+                        <svg class="w-4 h-4 ml-2.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                    <a href="{{ url_for('static', filename='sample_transactions.csv') }}" download class="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-slate-600 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-slate-800 transition-all shadow-sm">
+                        <svg class="w-4 h-4 mr-2.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        <span>View Sample</span>
+                    </a>
+                </div>
+                
+                <!-- Features checklist -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-100">
+                    <div class="flex items-center space-x-2.5 text-sm text-slate-500 font-medium">
+                        <div class="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <span>No signup required</span>
+                    </div>
+                    <div class="flex items-center space-x-2.5 text-sm text-slate-500 font-medium">
+                        <div class="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <span>Processed in-memory</span>
+                    </div>
+                    <div class="flex items-center space-x-2.5 text-sm text-slate-500 font-medium">
+                        <div class="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <span>6 countries supported</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Graphic Mockup Column -->
+            <div class="lg:col-span-5 relative flex items-center justify-center">
+                <!-- Decorative background blur elements -->
+                <div class="absolute w-72 h-72 bg-emerald-200/40 rounded-full blur-3xl -top-10 -right-10 z-0"></div>
+                <div class="absolute w-64 h-64 bg-teal-200/30 rounded-full blur-3xl -bottom-10 -left-10 z-0"></div>
+                
+                <!-- Mockup Dashboard Container -->
+                <div class="relative w-full max-w-sm bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-100/50 p-6 space-y-6 z-10 hover-card">
+                    
+                    <!-- Header -->
+                    <div class="flex justify-between items-center pb-4 border-b border-slate-50">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="text-xs font-mono font-bold tracking-wider text-slate-400 uppercase">validation . live</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] bg-slate-50 text-slate-500 font-semibold px-2 py-0.5 rounded-md border border-slate-100 flex items-center space-x-1">
+                                <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                <span>2.3s</span>
+                            </span>
+                            <span class="text-xs bg-emerald-50 text-emerald-800 font-semibold px-2 py-0.5 rounded-md">PASSING</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Small stats grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50/70 border border-slate-100 rounded-2xl p-4 flex flex-col justify-between">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Records</span>
+                            <span class="text-2xl font-extrabold text-sift-darkblue font-outfit mt-1">20,431</span>
+                        </div>
+                        <div class="bg-slate-50/70 border border-slate-100 rounded-2xl p-4 flex flex-col justify-between">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Success</span>
+                            <div class="flex items-baseline justify-between mt-1">
+                                <span class="text-2xl font-extrabold text-sift-darkblue font-outfit">92.5%</span>
+                                <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Circular quality chart mockup -->
+                    <div class="flex items-center justify-between p-4 bg-slate-50/30 rounded-2xl border border-slate-100/50">
+                        <div class="w-24 h-24 relative flex items-center justify-center">
+                            <!-- Circular Donut Mockup -->
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#e2e8f0" stroke-width="3.2"></circle>
+                                <!-- Valid (92.5% Green) -->
+                                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#059669" stroke-width="3.2" stroke-dasharray="92.5 7.5" stroke-dashoffset="0"></circle>
+                                <!-- Warning (4.2% Orange) -->
+                                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f59e0b" stroke-width="3.2" stroke-dasharray="4.2 95.8" stroke-dashoffset="-92.5"></circle>
+                                <!-- Error (3.3% Red) -->
+                                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ef4444" stroke-width="3.2" stroke-dasharray="3.3 96.7" stroke-dashoffset="-96.7"></circle>
+                            </svg>
+                            <div class="absolute flex flex-col items-center">
+                                <span class="text-sm font-black text-sift-darkblue leading-none">92.5%</span>
+                                <span class="text-[8px] font-bold text-slate-400 mt-0.5">VALID</span>
+                            </div>
+                        </div>
+                        <div class="flex-grow ml-6 space-y-1.5 text-[11px] font-semibold text-slate-500">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                                    <span>Valid</span>
+                                </div>
+                                <span class="text-slate-700">92.5%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                    <span>Warnings</span>
+                                </div>
+                                <span class="text-slate-700">4.2%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                    <span>Errors</span>
+                                </div>
+                                <span class="text-slate-700">3.3%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Flow Logs -->
+                    <div class="bg-slate-900 rounded-xl p-3.5 font-mono text-[9px] text-slate-400 space-y-2">
+                        <div class="flex justify-between items-center text-slate-500 border-b border-slate-800 pb-2 mb-2">
+                            <span class="font-bold tracking-wider text-slate-500 uppercase">FILE PROCESS LOGS</span>
+                            <span class="text-emerald-400 flex items-center space-x-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span class="font-semibold text-slate-300">cleaned.csv ready</span>
+                            </span>
+                        </div>
+                        <div class="flex justify-between text-slate-300">
+                            <span>TXN-20431</span>
+                            <span>249.99 USD</span>
+                            <span class="text-emerald-400">ok</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 1: CURRENT FEATURES SECTION -->
+<div class="bg-white py-16 sm:py-24 border-t border-slate-100 scroll-fade">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl font-extrabold font-outfit text-sift-darkblue sm:text-4xl">
+                Comprehensive Data Quality Toolset
+            </h2>
+            <p class="mt-4 text-lg text-slate-500">
+                A complete suite of diagnostic and repair tools built specifically for transaction and client data.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Phone Validation -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card flex flex-col justify-between h-full transition-all">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold font-outfit text-sift-darkblue mb-2">Phone Validation</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Validate phone numbers using configurable country-specific rules (IN, SG, US, UK, AU, AE).</p>
+                </div>
+            </div>
+            
+            <!-- Date & Time Validation -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card flex flex-col justify-between h-full transition-all">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold font-outfit text-sift-darkblue mb-2">Date Validation</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Verify dates and timestamps against a wide library of supported formats.</p>
+                </div>
+            </div>
+            
+            <!-- Data Integrity -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card flex flex-col justify-between h-full transition-all">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold font-outfit text-sift-darkblue mb-2">Data Integrity</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Detect missing values, invalid formats, and duplicate transaction records.</p>
+                </div>
+            </div>
+            
+            <!-- CSV Chunking -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card flex flex-col justify-between h-full transition-all">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold font-outfit text-sift-darkblue mb-2">CSV Chunking</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Split large files into smaller downloadable chunks of any size.</p>
+                </div>
+            </div>
+            
+            <!-- Email Validation -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card flex flex-col justify-between h-full transition-all">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold font-outfit text-sift-darkblue mb-2">Email Validation</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Validate emails, domains, formatting issues, temporary domains and duplicates.</p>
+                </div>
+            </div>
+            
+            <!-- Schema Discovery -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card flex flex-col justify-between h-full transition-all">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold font-outfit text-sift-darkblue mb-2">Schema Discovery</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Automatically detect dataset types, column aliases and field mappings.</p>
+                </div>
+            </div>
+            
+            <!-- Data Cleaning -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card flex flex-col justify-between h-full transition-all">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold font-outfit text-sift-darkblue mb-2">Data Cleaning</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Repair recoverable values, remove invalid rows and generate audit reports.</p>
+                </div>
+            </div>
+            
+            <!-- Quality Scoring -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card flex flex-col justify-between h-full transition-all">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold font-outfit text-sift-darkblue mb-2">Quality Scoring</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Calculate completeness, validity and uniqueness scores.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 2: WORKFLOW TIMELINE -->
+<div class="bg-slate-50 py-16 sm:py-24 border-t border-slate-100 scroll-fade">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl font-extrabold font-outfit text-sift-darkblue sm:text-4xl">
+                How Sift Works
+            </h2>
+            <p class="mt-4 text-lg text-slate-500">
+                From upload to production-ready datasets in seconds.
+            </p>
+        </div>
+        
+        <div class="relative">
+            <!-- Connecting Line for Desktop -->
+            <div class="hidden lg:block absolute top-10 left-4 right-4 h-0.5 bg-slate-200 -z-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 relative z-10">
+                <!-- Step 1: Upload CSV -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-100 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-sm font-extrabold font-outfit text-sift-darkblue mb-1">Upload CSV</h4>
+                    <p class="text-xs text-slate-500 px-2 leading-relaxed">Drop your raw transaction CSV file securely.</p>
+                </div>
+                
+                <!-- Step 2: Analyze Dataset -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-bold mb-4 bg-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-sm font-extrabold font-outfit text-sift-darkblue mb-1">Analyze Dataset</h4>
+                    <p class="text-xs text-slate-500 px-2 leading-relaxed">Discover schemas, headers and classifications.</p>
+                </div>
+                
+                <!-- Step 3: Validate Data -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-bold mb-4 bg-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-sm font-extrabold font-outfit text-sift-darkblue mb-1">Validate Data</h4>
+                    <p class="text-xs text-slate-500 px-2 leading-relaxed">Run checks on phone, date and formats.</p>
+                </div>
+                
+                <!-- Step 4: Clean Records -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-bold mb-4 bg-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-sm font-extrabold font-outfit text-sift-darkblue mb-1">Clean Records</h4>
+                    <p class="text-xs text-slate-500 px-2 leading-relaxed">Correct formats and drop duplicates.</p>
+                </div>
+                
+                <!-- Step 5: Export Results -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-bold mb-4 bg-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-sm font-extrabold font-outfit text-sift-darkblue mb-1">Export Results</h4>
+                    <p class="text-xs text-slate-500 px-2 leading-relaxed">Download cleaned files and audit reports.</p>
+                </div>
+                
+                <!-- Step 6: Split Files -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-bold mb-4 bg-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 10.742l8.99-4.495m0 0l-8.99-4.499m8.99 4.495L8.684 15.238m0 0l8.99 4.495m-8.99-4.495L8.684 10.742"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-sm font-extrabold font-outfit text-sift-darkblue mb-1">Split Files</h4>
+                    <p class="text-xs text-slate-500 px-2 leading-relaxed">Chunk large files to bypass system limits.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 3: QUALITY METRICS -->
+<div id="metrics-section" class="bg-white py-16 sm:py-24 border-t border-slate-100 scroll-fade">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl font-extrabold font-outfit text-sift-darkblue sm:text-4xl">
+                Built for Data Teams
+            </h2>
+            <p class="mt-4 text-lg text-slate-500">
+                An industrial-grade platform structured to process critical transaction volume.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Rows Processed -->
+            <div class="border border-slate-100 bg-slate-50/50 rounded-2xl p-8 text-center hover-card">
+                <span class="text-5xl sm:text-6xl font-black font-outfit text-sift-green block mb-2" data-target="50" data-suffix="M+">0M+</span>
+                <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase">Rows Processed</span>
+            </div>
+            
+            <!-- Validation Accuracy -->
+            <div class="border border-slate-100 bg-slate-50/50 rounded-2xl p-8 text-center hover-card">
+                <span class="text-5xl sm:text-6xl font-black font-outfit text-sift-green block mb-2" data-target="99.9" data-suffix="%" data-decimals="1">0%</span>
+                <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase">Validation Accuracy</span>
+            </div>
+            
+            <!-- Countries Supported -->
+            <div class="border border-slate-100 bg-slate-50/50 rounded-2xl p-8 text-center hover-card">
+                <span class="text-5xl sm:text-6xl font-black font-outfit text-sift-green block mb-2" data-target="6" data-suffix="">0</span>
+                <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase">Countries Supported</span>
+            </div>
+            
+            <!-- Cleaning Modes -->
+            <div class="border border-slate-100 bg-slate-50/50 rounded-2xl p-8 text-center hover-card">
+                <span class="text-5xl sm:text-6xl font-black font-outfit text-sift-green block mb-2" data-target="3" data-suffix="">0</span>
+                <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase">Cleaning Modes</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 4: CLEANING ENGINE -->
+<div class="bg-slate-50 py-16 sm:py-24 border-t border-slate-100 scroll-fade">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl font-extrabold font-outfit text-sift-darkblue sm:text-4xl">
+                Professional Cleaning Engine
+            </h2>
+            <p class="mt-4 text-lg text-slate-500">
+                Choose the strategy that aligns best with your target ingestion rules.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- STRICT -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-8 shadow-sm hover-card relative flex flex-col justify-between h-full hover:shadow-md transition-all">
+                <div>
+                    <h3 class="text-xl font-bold font-outfit text-sift-darkblue mb-3">STRICT</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">Remove every invalid row to guarantee zero-defect data reaches your database.</p>
+                </div>
+                <div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-800">
+                        Zero Defects
+                    </span>
+                </div>
+            </div>
+            
+            <!-- SMART -->
+            <div class="border border-emerald-500/20 bg-white rounded-2xl p-8 shadow-sm hover-card relative flex flex-col justify-between h-full hover:shadow-md transition-all ring-1 ring-emerald-500/10">
+                <div class="absolute -top-3.5 right-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-600 text-white shadow-sm shadow-emerald-100">
+                        Recommended
+                    </span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold font-outfit text-emerald-800 mb-3">SMART</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">Fix recoverable values, standardize formats, impute missing fields, and drop duplicates automatically.</p>
+                </div>
+                <div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
+                        Auto Imputation
+                    </span>
+                </div>
+            </div>
+            
+            <!-- SOFT -->
+            <div class="border border-slate-100 bg-white rounded-2xl p-8 shadow-sm hover-card relative flex flex-col justify-between h-full hover:shadow-md transition-all">
+                <div class="absolute -top-3.5 right-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-sift-darkblue text-white">
+                        Enterprise
+                    </span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold font-outfit text-sift-darkblue mb-3">SOFT</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">Keep all rows and assign status tag columns to filter or route invalid records downstream.</p>
+                </div>
+                <div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700">
+                        Data Labeling
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 5: CTA -->
+<div class="bg-white py-16 sm:py-20 border-t border-slate-100 scroll-fade">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-r from-sift-darkblue to-slate-900 rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
+            <!-- Decorative background gradient glow -->
+            <div class="absolute w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -top-20 -right-20 z-0"></div>
+            
+            <div class="relative z-10 max-w-3xl">
+                <h2 class="text-3xl font-extrabold font-outfit text-white sm:text-4xl">
+                    Ready to clean your first dataset?
+                </h2>
+                <p class="mt-4 text-slate-300 text-base leading-relaxed">
+                    Drop a CSV and we'll generate a validation report in seconds. No data leaves your session.
+                </p>
+                
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                    <a href="{{ url_for('upload.upload_page') }}" class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-semibold text-slate-900 bg-white rounded-xl hover:bg-slate-100 transition-all shadow-md group">
+                        <span>Upload CSV</span>
+                        <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                    <a href="{{ url_for('static', filename='sample_transactions.csv') }}" download class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-semibold text-white bg-slate-800/80 border border-slate-700/60 rounded-xl hover:bg-slate-800 transition-all">
+                        <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        <span>Download Sample</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- SECTION 6: FOOTER OVERRIDE -->
+{% block footer %}
+<footer class="bg-slate-950 border-t border-slate-900 text-slate-400 text-xs py-10 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+            <!-- Column 1: Brand -->
+            <div class="space-y-3 col-span-2 md:col-span-1">
+                <div class="flex items-center space-x-2">
+                    <div class="w-6 h-6 rounded-lg bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-bold font-outfit text-white">Sift Data Validator</span>
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed max-w-xs">
+                    Professional CSV validation, cleaning and chunking platform.
+                </p>
+                <div class="flex space-x-3 pt-1">
+                    <a href="#" class="text-slate-500 hover:text-emerald-400 transition-colors">
+                        <span class="sr-only">GitHub</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-slate-500 hover:text-emerald-400 transition-colors">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-slate-500 hover:text-emerald-400 transition-colors">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Product -->
+            <div class="space-y-3">
+                <h5 class="text-xs font-bold text-white uppercase tracking-wider">Product</h5>
+                <ul class="space-y-2 text-slate-500 text-[11px]">
+                    <li><a href="{{ url_for('upload.upload_page') }}" class="hover:text-emerald-400 hover:underline transition-all">Validation</a></li>
+                    <li><a href="{{ url_for('cleaning.clean_page') }}" class="hover:text-emerald-400 hover:underline transition-all">Cleaning</a></li>
+                    <li><a href="{{ url_for('chunking.chunk_page') }}" class="hover:text-emerald-400 hover:underline transition-all">Chunking</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 hover:underline transition-all">Schema Discovery</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: Resources -->
+            <div class="space-y-3">
+                <h5 class="text-xs font-bold text-white uppercase tracking-wider">Resources</h5>
+                <ul class="space-y-2 text-slate-500 text-[11px]">
+                    <li><a href="#" class="hover:text-emerald-400 hover:underline transition-all">Documentation</a></li>
+                    <li><a href="{{ url_for('static', filename='sample_transactions.csv') }}" class="hover:text-emerald-400 hover:underline transition-all">Sample Dataset</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 hover:underline transition-all">Release Notes</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 hover:underline transition-all">API Reference</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 4: Company -->
+            <div class="space-y-3">
+                <h5 class="text-xs font-bold text-white uppercase tracking-wider">Company</h5>
+                <ul class="space-y-2 text-slate-500 text-[11px]">
+                    <li><a href="#" class="hover:text-emerald-400 hover:underline transition-all">About</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 hover:underline transition-all">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 hover:underline transition-all">Terms</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 hover:underline transition-all">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="border-t border-slate-900 pt-6 flex flex-col sm:flex-row justify-between items-center text-slate-600 text-[10px]">
+            <p>&copy; 2026 Sift Data Validator. All rights reserved.</p>
+            <p class="mt-2 sm:mt-0">Built with Flask, Pandas and TailwindCSS</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Scroll Fade In Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.scroll-fade').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 2. Animated Counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-target]');
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-target'));
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const decimals = parseInt(counter.getAttribute('data-decimals') || '0');
+                const duration = 2000; // 2s
+                const startTime = performance.now();
+                
+                function updateCount(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // Cubic easeOut for smoother end deceleration
+                    const easeProgress = 1 - Math.pow(1 - progress, 3);
+                    const currentVal = easeProgress * target;
+                    
+                    counter.textContent = currentVal.toFixed(decimals) + suffix;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCount);
+                    }
+                }
+                requestAnimationFrame(updateCount);
+            });
+        }
+
+        // Trigger counters when the metrics section is in view
+        const metricsSection = document.getElementById('metrics-section');
+        if (metricsSection) {
+            const metricsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        metricsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            metricsObserver.observe(metricsSection);
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,642 @@
+[
+  {
+    "row": 7,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 9,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 18,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 19,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 26,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 30,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 34,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 35,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 40,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 43,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 46,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 50,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 54,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 55,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 56,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 65,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 67,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 73,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 74,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 77,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 83,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 84,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 86,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 87,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 93,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 100,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 103,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 119,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 120,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 121,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 123,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 124,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 126,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 133,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 135,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 136,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 138,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 144,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 145,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 146,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 147,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 154,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 160,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 164,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 166,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 168,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 174,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 176,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 181,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 183,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 186,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 188,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 190,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 192,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 193,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 196,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 200,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 201,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 204,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 205,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 207,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 220,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 227,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 232,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 243,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 248,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 249,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 253,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 254,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 266,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 271,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 272,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 274,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 280,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 281,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 282,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 284,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 291,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 294,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 298,
+    "column": "email",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  }
+]

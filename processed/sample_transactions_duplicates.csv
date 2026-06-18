@@ -1,0 +1,3 @@
+transaction_id,customer_id,country,phone_number,transaction_date,transaction_time,payment_mode,amount,currency,customer_name
+TXN-10007,CUST-12839,IN,919999888877,2026-01-01,08:30:00,UPI,1000.00,INR,Ayesha Shetty
+TXN-10007,CUST-12839,IN,919999888877,2026-01-01,08:30:00,UPI,1000.00,INR,Duplicate Transaction ID

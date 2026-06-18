@@ -1,0 +1,21 @@
+id,transaction_date,expected_result,notes
+1,2026-06-18,VALID,ISO format
+2,2026-06-18,VALID,DD-MM-YYYY
+3,2026-06-18,VALID,MM/DD/YYYY
+4,2026-06-18,VALID,DD/MM/YYYY
+5,2026-06-18,VALID,YYYY/MM/DD
+6,2024-02-29,VALID,Leap year
+15,2026-06-18,VALID,Timestamp
+16,2026-06-18,VALID,ISO timestamp
+17,2026-06-18,VALID,Timezone offset
+18,2099-01-01,WARNING,Future date
+19,1900-01-01,WARNING,Ancient date
+20,1800-01-01,WARNING,Very old date
+21,2026-05-06,AMBIGUOUS,Could be DD-MM or MM-DD
+22,2026-06-05,AMBIGUOUS,Could be MM-DD or DD-MM
+28,2026-06-18,VALID,Text month
+29,2026-06-18,VALID,Month first
+30,2026-06-18,VALID,Compact numeric date
+36,2024-02-29,VALID,Leap year timestamp
+38,9999-12-31,VALID,Maximum year
+39,2003-01-02,AMBIGUOUS,Three-part ambiguous

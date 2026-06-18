@@ -1,0 +1,290 @@
+[
+  {
+    "row": 2,
+    "column": "transaction_date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "transaction_date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "transaction_date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "transaction_date",
+    "original": "2026/06/18",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "transaction_date",
+    "original": "2025-02-29",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 8,
+    "column": "transaction_date",
+    "original": "2026-02-31",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 9,
+    "column": "transaction_date",
+    "original": "2026-04-31",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 10,
+    "column": "transaction_date",
+    "original": "2026-12-32",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 11,
+    "column": "transaction_date",
+    "original": "2026-13-01",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 12,
+    "column": "transaction_date",
+    "original": "2026-00-10",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 13,
+    "column": "transaction_date",
+    "original": "2026-01-00",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 14,
+    "column": "transaction_date",
+    "original": "31/11/2026",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 15,
+    "column": "transaction_date",
+    "original": "2026-06-18 14:30:00",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "transaction_date",
+    "original": "2026-06-18T14:30:00Z",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "transaction_date",
+    "original": "2026-06-18T14:30:00+05:30",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "transaction_date",
+    "original": "05-06-2026",
+    "cleaned": "2026-05-06",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "transaction_date",
+    "original": "06-05-2026",
+    "cleaned": "2026-06-05",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "transaction_date",
+    "original": "",
+    "cleaned": "0000-01-01",
+    "action": "missing_imputation",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "transaction_date",
+    "original": "0000-01-01",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 24,
+    "column": "transaction_date",
+    "original": "",
+    "cleaned": "0000-01-01",
+    "action": "missing_imputation",
+    "severity": "INFO"
+  },
+  {
+    "row": 24,
+    "column": "transaction_date",
+    "original": "0000-01-01",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 25,
+    "column": "transaction_date",
+    "original": "abcdef",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 26,
+    "column": "transaction_date",
+    "original": "12345",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 27,
+    "column": "transaction_date",
+    "original": "99999999",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 28,
+    "column": "transaction_date",
+    "original": "18 Jun 2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 29,
+    "column": "transaction_date",
+    "original": "June 18 2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 30,
+    "column": "transaction_date",
+    "original": "20260618",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 31,
+    "column": "transaction_date",
+    "original": "2026-W25-4",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 32,
+    "column": "transaction_date",
+    "original": "2026-06-18 25:00:00",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 33,
+    "column": "transaction_date",
+    "original": "2026-06-18 14:61:00",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 34,
+    "column": "transaction_date",
+    "original": "2026-06-18 14:30:61",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 35,
+    "column": "transaction_date",
+    "original": "2026-02-29T12:00:00",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 36,
+    "column": "transaction_date",
+    "original": "2024-02-29T12:00:00",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 37,
+    "column": "transaction_date",
+    "original": "0000-01-01",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 39,
+    "column": "transaction_date",
+    "original": "01/02/03",
+    "cleaned": "2003-01-02",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 40,
+    "column": "transaction_date",
+    "original": "18-13-2026",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  }
+]

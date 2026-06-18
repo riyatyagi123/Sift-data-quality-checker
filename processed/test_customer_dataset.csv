@@ -1,0 +1,6 @@
+customer_id,full_name,email,phone_number,city,signup_date
+457429,Tanya,tanya@gmail.com,7006534601,Srinagar,22-08-2024
+457430,Rahul,rahul@test.org,9876543210,Delhi,2026-06-16
+457431,Aisha,aisha@domain.co.in,8123456789,Mumbai,16/06/2026
+457432,Raj,invalid_email,987654321,Bangalore,22-08-2024
+457433,John,john@gmail.com,,New York,22-08-2024

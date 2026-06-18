@@ -1,0 +1,50 @@
+[
+  {
+    "row": 1,
+    "column": "nation",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 1,
+    "column": "customer_phone",
+    "original": "919876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "nation",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "customer_phone",
+    "original": "6581234567",
+    "cleaned": "81234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "transaction_date",
+    "original": "2026-06-16 12:00:00",
+    "cleaned": "2026-06-16",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "payment_type",
+    "original": "CARD",
+    "cleaned": "Credit Card",
+    "action": "payment_mode_mapping",
+    "severity": "INFO"
+  }
+]

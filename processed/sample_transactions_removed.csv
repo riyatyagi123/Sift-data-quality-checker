@@ -1,0 +1,6 @@
+transaction_id,customer_id,country,phone_number,transaction_date,transaction_time,payment_mode,amount,currency,customer_name
+TXN-10008,CUST-39482,United States,5550192,2026-06-16,10:00:00,WALLET,-50.00,USD,Invalid Negative Amount
+TXN-10009,CUST-88301,United States,3125550144,32-12-2025,12:00:00,Credit Card,100.00,USD,Impossible Date Dec 32
+TXN-10010,,Singapore,98765432,2026-02-15,16:40:00,WALLET,75.00,SGD,Missing Customer ID
+TXN-10013,CUST-98210,United States,2025550183,2026-06-12,14:10:00,PAYPAL,12.50,USD,Invalid Payment Mode PAYPAL
+TXN-10014,CUST-38291,United Kingdom,447911999999,2026-05-18,09:15:00,Credit Card,85.00,EUR,Invalid Currency EUR

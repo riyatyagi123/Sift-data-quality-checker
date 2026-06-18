@@ -1,0 +1,21 @@
+id,transaction_date,expected_result,notes
+7,2025-02-29,INVALID,Non leap year
+8,2026-02-31,INVALID,31 Feb
+9,2026-04-31,INVALID,April has 30 days
+10,2026-12-32,INVALID,Day exceeds limit
+11,2026-13-01,INVALID,Month exceeds limit
+12,2026-00-10,INVALID,Month zero
+13,2026-01-00,INVALID,Day zero
+14,31/11/2026,INVALID,November has 30 days
+23,0000-01-01,INVALID,Missing value
+24,0000-01-01,INVALID,Empty string
+25,abcdef,INVALID,Garbage text
+26,12345,INVALID,Short digits
+27,99999999,INVALID,Numeric garbage
+31,2026-W25-4,INVALID,ISO week format unsupported
+32,2026-06-18 25:00:00,INVALID,Invalid hour
+33,2026-06-18 14:61:00,INVALID,Invalid minute
+34,2026-06-18 14:30:61,INVALID,Invalid second
+35,2026-02-29T12:00:00,INVALID,Non leap year timestamp
+37,0000-01-01,INVALID,Year zero
+40,18-13-2026,INVALID,Month 13 in DD-MM-YYYY

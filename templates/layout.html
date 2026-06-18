@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50/50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sift Data Validator | Professional CSV Transaction Processor</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Validate, clean, and split transaction datasets using Sift. In-memory CSV parsing with dynamic phone and date formats rules.">
+    <meta name="keywords" content="data validator, csv chunker, transaction cleaner, duplicate checker, pandas csv">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            950: '#022c22'
+                        },
+                        sift: {
+                            green: '#008060',
+                            lightgreen: '#e6f3ef',
+                            darkblue: '#0a2540',
+                            slate: '#4b5563'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="h-full flex flex-col font-sans antialiased text-slate-800 relative bg-grid">
+
+    <!-- Header Navigation -->
+    <header class="border-b border-slate-100 bg-white/80 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                
+                <!-- Logo -->
+                <a href="{{ url_for('index') }}" class="flex items-center space-x-3 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-100 transition-transform group-hover:scale-105">
+                        <!-- Funnel icon representing Sift -->
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold font-outfit text-sift-darkblue leading-none tracking-tight">Sift</span>
+                        <span class="text-[9px] font-extrabold tracking-widest text-slate-400 mt-0.5">DATA VALIDATOR</span>
+                    </div>
+                </a>
+                
+                <!-- Nav Links -->
+                {% set active_bp = request.blueprint %}
+                <nav class="hidden md:flex items-center space-x-1 bg-slate-100/60 p-1.5 rounded-full border border-slate-100">
+                    <a href="{{ url_for('index') }}" class="px-5 py-1.5 rounded-full text-sm font-semibold transition-all {% if not active_bp %}bg-white text-sift-green shadow-sm border border-slate-200/50{% else %}text-slate-500 hover:text-slate-900 hover:bg-white/40{% endif %}">
+                        Home
+                    </a>
+                    <a href="{{ url_for('upload.upload_page') }}" class="px-5 py-1.5 rounded-full text-sm font-semibold transition-all {% if active_bp == 'upload' %}bg-white text-sift-green shadow-sm border border-slate-200/50{% else %}text-slate-500 hover:text-slate-900 hover:bg-white/40{% endif %}">
+                        Upload
+                    </a>
+                    <a href="{{ url_for('validation.validate_page') }}" class="px-5 py-1.5 rounded-full text-sm font-semibold transition-all {% if active_bp == 'validation' %}bg-white text-sift-green shadow-sm border border-slate-200/50{% else %}text-slate-500 hover:text-slate-900 hover:bg-white/40{% endif %}">
+                        Validate
+                    </a>
+                    <a href="{{ url_for('cleaning.clean_page') }}" class="px-5 py-1.5 rounded-full text-sm font-semibold transition-all {% if active_bp == 'cleaning' %}bg-white text-sift-green shadow-sm border border-slate-200/50{% else %}text-slate-500 hover:text-slate-900 hover:bg-white/40{% endif %}">
+                        Cleaned
+                    </a>
+                    <a href="{{ url_for('chunking.chunk_page') }}" class="px-5 py-1.5 rounded-full text-sm font-semibold transition-all {% if active_bp == 'chunking' %}bg-white text-sift-green shadow-sm border border-slate-200/50{% else %}text-slate-500 hover:text-slate-900 hover:bg-white/40{% endif %}">
+                        Chunk
+                    </a>
+                </nav>
+                
+                <!-- CTA / Upload Button -->
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('upload.upload_page', reset=1) }}" class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-sift-green rounded-xl hover:bg-emerald-800 transition-all shadow-sm shadow-emerald-100 hover:shadow">
+                        Upload CSV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex flex-col justify-start">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Watermark / Footer -->
+    {% block footer %}
+    <footer class="bg-white border-t border-slate-100 py-6 text-center text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between">
+            <p>&copy; 2026 Sift Data Validator. All rights reserved.</p>
+            <div class="mt-2 sm:mt-0 flex items-center space-x-1 text-slate-500 font-semibold bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse mr-1"></span>
+                <span>Active Pipeline</span>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+
+    <script src="{{ url_for('static', filename='js/responsive.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,20 @@
+id,country,phone_number,expected_result,notes
+7,India,98765,INVALID,Too short
+8,India,,INVALID,Missing value
+12,Singapore,71234567,INVALID,Invalid starting digit
+13,Singapore,8123456,INVALID,Too short
+17,United States,0000000000,INVALID,Area code invalid
+18,United States,1234567890,INVALID,Area code starts with 1
+19,United States,202555018,INVALID,Too short
+23,United Kingdom,7911123456,INVALID,Missing leading zero
+24,United Kingdom,07123,INVALID,Too short
+28,Australia,491570156,INVALID,Missing leading zero
+29,Australia,04123,INVALID,Too short
+33,UAE,501234567,INVALID,Missing leading zero
+34,UAE,05012345,INVALID,Too short
+45,India,abcdefghij,INVALID,Alphabetic
+46,India,987654321O,INVALID,Letter O instead of zero
+47,India,999999999999999,INVALID,Too long
+48,India,,INVALID,String null
+49,India,,INVALID,String undefined
+50,India,,INVALID,Not available

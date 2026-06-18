@@ -1,0 +1,370 @@
+[
+  {
+    "row": 1,
+    "column": "country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 1,
+    "column": "phone_number",
+    "original": "+91 98765 43210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 1,
+    "column": "transaction_date",
+    "original": "12-05-2026",
+    "cleaned": "2026-12-05",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "phone_number",
+    "original": "6581234567",
+    "cleaned": "81234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "payment_mode",
+    "original": "CARD",
+    "cleaned": "Credit Card",
+    "action": "payment_mode_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "phone_number",
+    "original": "13125550192",
+    "cleaned": "3125550192",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "transaction_date",
+    "original": "05/24/2026",
+    "cleaned": "2026-05-24",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "phone_number",
+    "original": "447911123456",
+    "cleaned": "07911123456",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "transaction_date",
+    "original": "2026/04/10",
+    "cleaned": "2026-04-10",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "country",
+    "original": "AU",
+    "cleaned": "Australia",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "transaction_date",
+    "original": "16/06/2026",
+    "cleaned": "2026-06-16",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "country",
+    "original": "AE",
+    "cleaned": "United Arab Emirates",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "phone_number",
+    "original": "971501234567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "transaction_date",
+    "original": "16-06-2026",
+    "cleaned": "2026-06-16",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "payment_mode",
+    "original": "CARD",
+    "cleaned": "Credit Card",
+    "action": "payment_mode_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "transaction_id",
+    "original": "TXN-10007",
+    "cleaned": "DELETED",
+    "action": "duplicate_removal",
+    "severity": "ERROR"
+  },
+  {
+    "row": 8,
+    "column": "country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "phone_number",
+    "original": "5550192",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 8,
+    "column": "amount",
+    "original": "-50.00",
+    "cleaned": "ERROR",
+    "action": "Negative amount",
+    "severity": "ERROR"
+  },
+  {
+    "row": 9,
+    "column": "country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "phone_number",
+    "original": "13125550144",
+    "cleaned": "3125550144",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "payment_mode",
+    "original": "CARD",
+    "cleaned": "Credit Card",
+    "action": "payment_mode_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "transaction_date",
+    "original": "32-12-2025",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 10,
+    "column": "transaction_id",
+    "original": "TXN-10007",
+    "cleaned": "DELETED",
+    "action": "duplicate_removal",
+    "severity": "ERROR"
+  },
+  {
+    "row": 11,
+    "column": "country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "phone_number",
+    "original": "6598765432",
+    "cleaned": "98765432",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "customer_id",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 12,
+    "column": "country",
+    "original": "AE",
+    "cleaned": "United Arab Emirates",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "phone_number",
+    "original": "971500000000",
+    "cleaned": "0500000000",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "phone_number",
+    "original": "+91 8888777766",
+    "cleaned": "8888777766",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "transaction_date",
+    "original": "15-06-2026",
+    "cleaned": "2026-06-15",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "payment_mode",
+    "original": "CARD",
+    "cleaned": "Credit Card",
+    "action": "payment_mode_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "phone_number",
+    "original": "12025550183",
+    "cleaned": "2025550183",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "payment_mode",
+    "original": "PAYPAL",
+    "cleaned": "ERROR",
+    "action": "Unsupported payment mode",
+    "severity": "ERROR"
+  },
+  {
+    "row": 15,
+    "column": "country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "payment_mode",
+    "original": "CARD",
+    "cleaned": "Credit Card",
+    "action": "payment_mode_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "phone_number",
+    "original": "447911999999",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 15,
+    "column": "currency",
+    "original": "EUR",
+    "cleaned": "ERROR",
+    "action": "Unsupported currency code",
+    "severity": "ERROR"
+  },
+  {
+    "row": 16,
+    "column": "country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "phone_number",
+    "original": "+919876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "transaction_date",
+    "original": "12-05-2026",
+    "cleaned": "2026-12-05",
+    "action": "date_standardization",
+    "severity": "INFO"
+  }
+]

@@ -1,0 +1,1039 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    
+    <!-- Top Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="space-y-2">
+            <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Step 2 of 4</span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold font-outfit text-sift-darkblue">Validation results</h1>
+            <p class="text-slate-500 text-xs font-semibold flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
+                <span>Quality report for</span>
+                <span id="reportFilename" class="font-mono font-bold text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded">{{ filename }}</span>
+                <span class="text-slate-300">|</span>
+                <span id="headerDatasetType" class="font-bold text-indigo-600">Loading Type...</span>
+                <span class="text-slate-300">|</span>
+                <span id="headerTotalRows" class="font-bold text-slate-700">0 rows</span>
+                <span class="text-slate-300">|</span>
+                <span id="headerFilesize" class="font-bold text-slate-700">0 KB</span>
+                <span class="text-slate-300">|</span>
+                <span id="headerProcessedTime" class="font-bold text-emerald-600">Processed in 0.0 sec</span>
+            </p>
+        </div>
+        <div class="flex items-center space-x-3 self-start md:self-auto">
+            <button id="rerunBtn" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-slate-600 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-all shadow-sm">
+                <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.2"/>
+                </svg>
+                <span>Re-run</span>
+            </button>
+            <a href="{{ url_for('cleaning.clean_page') }}" id="proceedBtn" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-sift-green rounded-xl hover:bg-emerald-800 transition-all shadow-sm shadow-emerald-100">
+                <span>View Cleaned Output</span>
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Loading Spinner (shown initially while validating) -->
+    <div id="validationLoader" class="flex flex-col items-center justify-center py-20 space-y-4 bg-white border border-slate-100 rounded-3xl shadow-sm">
+        <div class="w-12 h-12 rounded-full border-4 border-slate-100 border-t-emerald-600 animate-spin"></div>
+        <div class="text-center">
+            <h3 class="text-lg font-bold text-sift-darkblue">Analyzing dataset quality...</h3>
+            <p class="text-xs text-slate-400">Running validation checks and compiling statistics</p>
+        </div>
+    </div>
+
+    <!-- Validation Dashboard Grid (hidden initially) -->
+    <div id="validationDashboard" class="hidden space-y-8">
+        
+        <!-- Dismissible Hint Banner -->
+        <div id="dismissibleHintBanner" class="bg-indigo-50/60 border border-indigo-100 text-indigo-800 text-[11px] font-semibold px-3 py-1.5 rounded-xl flex items-center justify-between shadow-sm">
+            <div class="flex items-center space-x-2">
+                <span>💡</span>
+                <span>Hover over <span class="text-emerald-600 font-bold">ⓘ</span> icons to understand how scores and metrics are calculated.</span>
+            </div>
+            <button onclick="dismissHintBanner()" class="text-indigo-400 hover:text-indigo-600 font-bold text-sm px-2 leading-none">×</button>
+        </div>
+
+        <!-- 8 Key Diagnostic Metric Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Card 1: Overall Score -->
+            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover-card flex items-center space-x-3 relative">
+                <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider select-none">
+                        Overall Score
+                    </span>
+                    <span id="cardOverallScore" class="text-base font-extrabold text-sift-darkblue font-outfit">0%</span>
+                    <span id="cardOverallScoreSub" class="block text-[9px] text-slate-400 font-semibold">Fair Quality</span>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-3 right-3 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Weighted score based on Completeness, Validity, Uniqueness
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 2: Success Rate -->
+            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover-card flex items-center space-x-3 relative">
+                <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider select-none">
+                        Success Rate
+                    </span>
+                    <span id="cardSuccessRate" class="text-base font-extrabold text-emerald-600 font-outfit">0%</span>
+                    <span id="cardSuccessRateSub" class="block text-[9px] text-slate-400 font-semibold">0 / 0 rows valid</span>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-3 right-3 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Rows passing validation rules. Formula: Valid Rows / Total Rows
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 3: Valid Rows -->
+            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover-card flex items-center space-x-3 relative">
+                <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider select-none">
+                        Valid Rows
+                    </span>
+                    <span id="cardValidRows" class="text-base font-extrabold text-emerald-600 font-outfit">0</span>
+                    <span class="block text-[9px] text-slate-400 font-semibold">Passed all checks</span>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-3 right-3 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Rows satisfying all expectations
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 4: Invalid Rows -->
+            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover-card flex items-center space-x-3 relative">
+                <div class="p-2.5 bg-rose-50 rounded-xl text-rose-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider select-none">
+                        Invalid Rows
+                    </span>
+                    <span id="cardInvalidRows" class="text-base font-extrabold text-rose-500 font-outfit">0</span>
+                    <span id="cardInvalidRowsSub" class="block text-[9px] text-slate-400 font-semibold">No issues</span>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-3 right-3 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Rows containing one or more errors
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 5: Confidence Score -->
+            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover-card flex items-center space-x-3 relative">
+                <div class="p-2.5 bg-indigo-50 rounded-xl text-indigo-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider select-none">
+                        Confidence Score
+                    </span>
+                    <span id="cardConfidence" class="text-base font-extrabold text-indigo-700 font-outfit">0%</span>
+                    <span id="cardConfidenceSub" class="block text-[9px] text-slate-400 font-semibold">Unknown</span>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-3 right-3 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        How certain the system is about dataset classification. Thresholds: 90–100 High, 70–89 Moderate, Below 70 Low
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 6: Dataset Type -->
+            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover-card flex items-center space-x-3 relative">
+                <div class="p-2.5 bg-indigo-50 rounded-xl text-indigo-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider select-none">
+                        Dataset Type
+                    </span>
+                    <span id="cardDatasetType" class="text-base font-extrabold text-indigo-700 truncate block max-w-[150px]">Unknown</span>
+                    <span class="block text-[9px] text-slate-400 font-semibold">Auto-classified</span>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-3 right-3 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Automatically inferred from column names, schema patterns, and data distribution
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 7: Total Rows -->
+            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover-card flex items-center space-x-3">
+                <div class="p-2.5 bg-slate-50 rounded-xl text-slate-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Total Rows</span>
+                    <span id="cardTotalRows" class="text-base font-extrabold text-sift-darkblue font-outfit">0</span>
+                    <span class="block text-[9px] text-slate-400 font-semibold">Total dataset records</span>
+                </div>
+            </div>
+
+            <!-- Card 8: Empty Columns -->
+            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover-card flex items-center space-x-3">
+                <div class="p-2.5 bg-amber-50 rounded-xl text-amber-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Empty Columns</span>
+                    <span id="cardEmptyCols" class="text-base font-extrabold text-amber-600 font-outfit">0</span>
+                    <span class="block text-[9px] text-slate-400 font-semibold">Completely empty fields</span>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- SECTION 1: Data Quality Score & Dataset Profile -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left: Quality Score Widget (5 cols) -->
+            <div class="lg:col-span-5 bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover-card relative h-full">
+                <div class="space-y-1">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm font-bold text-sift-darkblue flex items-center select-none">
+                            Quality Dimensions
+                        </span>
+                        <span class="bg-indigo-50 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Scoring Engine</span>
+                    </div>
+                    <p class="text-slate-400 text-xs font-medium">Weighted evaluation of completeness, validity, and uniqueness.</p>
+                </div>
+                <!-- Info Icon at top right -->
+                <div class="absolute top-6 right-6 cursor-help group">
+                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                    </svg>
+                    <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                        Weighted evaluation of completeness, validity, and uniqueness
+                    </span>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row items-center gap-6 my-6">
+                    <!-- Circular Score Gauge -->
+                    <div class="relative w-36 h-36 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                            <!-- Background circle -->
+                            <circle class="text-slate-100" stroke-width="8" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"/>
+                            <!-- Active circle -->
+                            <circle id="scoreProgressRing" class="text-emerald-500 transition-all duration-700 ease-out" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"/>
+                        </svg>
+                        <div class="absolute flex flex-col items-center justify-center text-center">
+                            <span id="overallScoreText" class="text-2xl font-extrabold font-outfit text-sift-darkblue leading-none">0%</span>
+                            <span class="text-[8px] font-extrabold text-slate-400 uppercase tracking-widest mt-1">QUALITY SCORE</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar Dimensions -->
+                    <div class="flex-grow space-y-3 w-full text-left">
+                        <!-- Completeness -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-[11px] font-bold">
+                                <span class="text-slate-500 flex items-center select-none gap-1">
+                                    Completeness
+                                    <span class="cursor-help group relative inline-flex items-center">
+                                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                                        </svg>
+                                        <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                                            Measures presence of required values across columns
+                                        </span>
+                                    </span>
+                                </span>
+                                <span id="completenessScoreText" class="text-sift-darkblue">0%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div id="completenessProgressBar" class="h-full bg-emerald-500 rounded-full transition-all duration-700" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                                <span>Required values available</span>
+                                <span id="completenessDesc" class="text-slate-500">Almost complete</span>
+                            </div>
+                        </div>
+                        <!-- Validity -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-[11px] font-bold">
+                                <span class="text-slate-500 flex items-center select-none gap-1">
+                                    Validity
+                                    <span class="cursor-help group relative inline-flex items-center">
+                                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                                        </svg>
+                                        <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                                            Conforms to expected formats, regexes and range rules
+                                        </span>
+                                    </span>
+                                </span>
+                                <span id="validityScoreText" class="text-sift-darkblue">0%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div id="validityProgressBar" class="h-full bg-indigo-500 rounded-full transition-all duration-700" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                                <span>Conforms to rules</span>
+                                <span id="validityDesc" class="text-slate-500">Needs improvement</span>
+                            </div>
+                        </div>
+                        <!-- Uniqueness -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-[11px] font-bold">
+                                <span class="text-slate-500 flex items-center select-none gap-1">
+                                    Uniqueness
+                                    <span class="cursor-help group relative inline-flex items-center">
+                                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                                        </svg>
+                                        <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                                            Measures percentage of distinct/non-duplicate primary values
+                                        </span>
+                                    </span>
+                                </span>
+                                <span id="uniquenessScoreText" class="text-sift-darkblue">0%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div id="uniquenessProgressBar" class="h-full bg-amber-500 rounded-full transition-all duration-700" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                                <span>Duplicate free</span>
+                                <span id="uniquenessDesc" class="text-slate-500">Contains duplicates</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+                <!-- Radar Chart -->
+                <div class="my-4 p-2 bg-slate-50/30 rounded-2xl border border-slate-100 flex justify-center items-center h-28">
+                    <canvas id="radarChart" class="w-full h-full"></canvas>
+                </div>
+            </div>
+            <!-- Right: Dataset Profiler (7 cols) -->
+            <div class="lg:col-span-7 bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover-card h-full">
+                <div class="space-y-1">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm font-bold text-sift-darkblue flex items-center select-none">
+                            Dataset Profile
+                        </span>
+                        <span class="bg-emerald-50 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Heuristic Engine</span>
+                    </div>
+                    <p class="text-slate-400 text-xs font-medium">Automatic data type inference and structural profiling metadata.</p>
+                </div>
+ 
+                <div class="grid grid-cols-2 md:grid-cols-12 gap-3 my-4">
+                    <div class="col-span-1 md:col-span-2 border border-slate-100 p-2.5 rounded-xl flex flex-col justify-center">
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Columns</span>
+                        <span id="profileColCount" class="text-base font-extrabold text-sift-darkblue mt-0.5 font-outfit">0</span>
+                    </div>
+                    <div class="col-span-1 md:col-span-3 border border-slate-100 p-2.5 rounded-xl flex flex-col justify-center">
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Dataset Type</span>
+                        <span id="profileDatasetType" class="text-[11px] font-extrabold text-indigo-700 mt-1 whitespace-normal break-words">Unknown</span>
+                    </div>
+                    <div class="col-span-1 md:col-span-2 border border-slate-100 p-2.5 rounded-xl flex flex-col justify-center">
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Success Rate</span>
+                        <span id="statRate" class="text-base font-extrabold text-emerald-600 mt-0.5 font-outfit">0%</span>
+                    </div>
+                    <div class="col-span-1 md:col-span-3 border border-slate-100 p-2.5 rounded-xl flex flex-col justify-center relative pr-7">
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">
+                            Detected Date Format
+                        </span>
+                        <span id="profileDateFormat" class="text-[11px] font-bold text-slate-700 mt-1 whitespace-normal break-all">N/A</span>
+                        <!-- Info Icon at top right -->
+                        <div class="absolute top-2 right-2 cursor-help group">
+                            <svg class="w-3 h-3 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01M22 12a10 10 0 11-20 0 10 10 0 0120 0z"/>
+                            </svg>
+                            <span class="pointer-events-none absolute bottom-full right-0 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case">
+                                Chronological standard date pattern detected in the transaction date column
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-span-1 md:col-span-2 border border-slate-100 p-2.5 rounded-xl flex flex-col justify-center">
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Confidence</span>
+                        <span id="profileDateConfidence" class="text-base font-extrabold text-slate-700 mt-0.5 font-outfit">0%</span>
+                    </div>
+                </div>
+ 
+                <!-- Columns Profiling Table -->
+                <div class="border border-slate-100 bg-slate-50/30 rounded-xl overflow-hidden shadow-sm flex-grow flex flex-col">
+                    <div class="flex-1">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-400 font-extrabold border-b border-slate-100 uppercase tracking-widest text-[9px]">
+                                    <th class="px-4 py-2">Column</th>
+                                    <th class="px-4 py-2">Detected Type</th>
+                                    <th class="px-4 py-2">Completeness</th>
+                                </tr>
+                            </thead>
+                            <tbody id="profileColumnsBody" class="divide-y divide-slate-50 text-slate-600 font-semibold bg-white">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Expectation Suite (Validation Cards) -->
+        <div class="space-y-4">
+            <div class="flex items-center gap-3 select-none">
+                <span class="text-xs font-extrabold tracking-widest text-slate-400 uppercase flex items-center select-none">
+                    Expectation Suite Assertions
+                </span>
+                <span class="bg-indigo-50 text-indigo-850 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">GREAT EXPECTATIONS PATTERNS</span>
+                <span class="bg-rose-50 text-rose-850 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">ACTION REQUIRED</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4">
+                
+                <!-- Expectation Card 1: Completeness -->
+                <div id="cardCompleteness" class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card transition-all duration-[250ms] ease-in-out overflow-hidden" style="max-height: 90px;">
+                    <div class="flex items-center justify-between cursor-pointer h-[42px]" onclick="toggleExpectation('cardCompleteness', 'expCompleteness')">
+                        <div class="flex items-center space-x-3 flex-grow max-w-md">
+                            <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-bold text-sift-darkblue font-mono truncate">expect_column_values_to_not_be_null</h4>
+                                <p class="text-[10px] text-slate-400 font-semibold truncate">Asserts that column entries contain required data values</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 text-[11px] font-bold text-slate-500 flex-shrink-0">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Status:</span>
+                                <span id="badgeCompleteness" class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-emerald-50 text-emerald-800 border border-emerald-100 shadow-sm">PASSED</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Pass Rate:</span>
+                                <span id="scoreCompleteness" class="text-xs font-extrabold text-slate-700 bg-slate-50 px-2 py-0.5 rounded">100%</span>
+                            </div>
+                            <svg id="arrowCompleteness" class="w-4 h-4 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div id="expCompleteness" class="pt-6 mt-6 border-t border-slate-100 text-xs transition-opacity duration-[250ms] ease-in-out opacity-0">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_1.2fr_0.8fr_1fr] gap-6 items-start">
+                            <div class="flex flex-col items-start">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Expectation Description</span>
+                                <p class="text-slate-600 font-medium leading-relaxed text-[11px] whitespace-normal break-words">Asserts that column entries contain required data values (no null or empty values).</p>
+                                <div class="mt-3">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Severity</span>
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-amber-100 text-amber-950 border border-amber-300 shadow-sm inline-block">WARNING</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Affected Columns</span>
+                                <p class="text-slate-700 font-semibold font-mono whitespace-normal break-words bg-slate-50 px-3 py-2 rounded-lg border border-slate-100 min-h-[40px] text-[11px] leading-relaxed">customer_id, transaction_date, amount, transaction_id</p>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Evaluation Stats</span>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Checked</span>
+                                        <span id="chkCompleteness" class="text-slate-700 font-bold block text-sm mt-0.5">0</span>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Failed</span>
+                                        <span id="affCompleteness" class="text-rose-600 font-bold block text-sm mt-0.5">0</span>
+                                        <span id="failCompleteness" class="hidden">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Diagnostic Detail</span>
+                                <div class="border border-slate-100 p-2.5 rounded-xl bg-slate-50/50">
+                                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Reason</span>
+                                    <span id="reasonCompleteness" class="text-slate-700 font-semibold block mt-0.5 whitespace-normal break-words">No missing values</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-slate-100">
+                            <span class="text-[9px] font-bold text-slate-400 uppercase block mb-3">Completeness by Column</span>
+                            <div id="completenessColumnBars" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expectation Card 2: Email Format -->
+                <div id="cardEmailExp" class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card transition-all duration-[250ms] ease-in-out overflow-hidden hidden" style="max-height: 90px;">
+                    <div class="flex items-center justify-between cursor-pointer h-[42px]" onclick="toggleExpectation('cardEmailExp', 'expEmail')">
+                        <div class="flex items-center space-x-3 flex-grow max-w-md">
+                            <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-bold text-sift-darkblue font-mono truncate">expect_column_values_to_be_valid_emails</h4>
+                                <p class="text-[10px] text-slate-400 font-semibold truncate">Asserts that email column strings conform to regex pattern rules</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 text-[11px] font-bold text-slate-500 flex-shrink-0">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Status:</span>
+                                <span id="badgeEmail" class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-emerald-50 text-emerald-800 border border-emerald-100 shadow-sm">PASSED</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Pass Rate:</span>
+                                <span id="scoreEmail" class="text-xs font-extrabold text-slate-700 bg-slate-50 px-2 py-0.5 rounded">100%</span>
+                            </div>
+                            <svg id="arrowEmail" class="w-4 h-4 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div id="expEmail" class="pt-6 mt-6 border-t border-slate-100 text-xs transition-opacity duration-[250ms] ease-in-out opacity-0">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_1.2fr_0.8fr_1fr] gap-6 items-start">
+                            <div class="flex flex-col items-start">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Expectation Description</span>
+                                <p class="text-slate-600 font-medium leading-relaxed text-[11px] whitespace-normal break-words">Asserts that email column strings conform to standard format and regex patterns.</p>
+                                <div class="mt-3">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Severity</span>
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-amber-100 text-amber-950 border border-amber-300 shadow-sm inline-block">WARNING</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Affected Columns</span>
+                                <p class="text-slate-700 font-semibold font-mono whitespace-normal break-words bg-slate-50 px-3 py-2 rounded-lg border border-slate-100 min-h-[40px] text-[11px] leading-relaxed">email</p>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Evaluation Stats</span>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Checked</span>
+                                        <span id="chkEmail" class="text-slate-700 font-bold block text-sm mt-0.5">0</span>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Failed</span>
+                                        <span id="affEmail" class="text-rose-600 font-bold block text-sm mt-0.5">0</span>
+                                        <span id="failEmail" class="hidden">0</span>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Missing</span>
+                                        <span id="missEmail" class="text-slate-600 font-bold block text-sm mt-0.5">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Diagnostic Detail</span>
+                                <div class="border border-slate-100 p-2.5 rounded-xl bg-slate-50/50 mb-3">
+                                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Reason</span>
+                                    <span id="reasonEmail" class="text-slate-700 font-semibold block mt-0.5 whitespace-normal break-words">All emails valid</span>
+                                </div>
+                                <div id="emailExamplesDiv" class="space-y-1.5 hidden">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block">Invalid Email Examples</span>
+                                    <div id="emailExamplesList" class="flex flex-wrap gap-[6px] w-full">
+                                        <!-- Populated dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expectation Card 3: Phone Format -->
+                <div id="cardPhoneExp" class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card transition-all duration-[250ms] ease-in-out overflow-hidden hidden" style="max-height: 90px;">
+                    <div class="flex items-center justify-between cursor-pointer h-[42px]" onclick="toggleExpectation('cardPhoneExp', 'expPhone')">
+                        <div class="flex items-center space-x-3 flex-grow max-w-md">
+                            <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-bold text-sift-darkblue font-mono truncate">expect_column_values_to_be_valid_phones</h4>
+                                <p class="text-[10px] text-slate-400 font-semibold truncate">Asserts country-aware length and formatting for contact columns</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 text-[11px] font-bold text-slate-500 flex-shrink-0">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Status:</span>
+                                <span id="badgePhone" class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-emerald-50 text-emerald-800 border border-emerald-100 shadow-sm">PASSED</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Pass Rate:</span>
+                                <span id="scorePhone" class="text-xs font-extrabold text-slate-700 bg-slate-50 px-2 py-0.5 rounded">100%</span>
+                            </div>
+                            <svg id="arrowPhone" class="w-4 h-4 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div id="expPhone" class="pt-6 mt-6 border-t border-slate-100 text-xs transition-opacity duration-[250ms] ease-in-out opacity-0">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_1.2fr_0.8fr_1fr] gap-6 items-start">
+                            <div class="flex flex-col items-start">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Expectation Description</span>
+                                <p class="text-slate-600 font-medium leading-relaxed text-[11px] whitespace-normal break-words">Asserts country-specific contact format rules and length bounds.</p>
+                                <div class="mt-3">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Severity</span>
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-rose-100 text-rose-950 border border-rose-300 shadow-sm inline-block">CRITICAL</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Affected Columns</span>
+                                <p class="text-slate-700 font-semibold font-mono whitespace-normal break-words bg-slate-50 px-3 py-2 rounded-lg border border-slate-100 min-h-[40px] text-[11px] leading-relaxed">phone_number</p>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Evaluation Stats</span>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Checked</span>
+                                        <span id="chkPhone" class="text-slate-700 font-bold block text-sm mt-0.5">0</span>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Failed</span>
+                                        <span id="affectedPhone" class="text-rose-600 font-bold block text-sm mt-0.5">0</span>
+                                        <span id="failPhone" class="hidden">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Diagnostic Detail</span>
+                                <div class="border border-slate-100 p-2.5 rounded-xl bg-slate-50/50 mb-3">
+                                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Reason</span>
+                                    <span id="reasonPhone" class="text-slate-700 font-semibold block mt-0.5 whitespace-normal break-words">All numbers valid</span>
+                                </div>
+                                <div id="phoneExamplesDiv" class="space-y-1.5 hidden">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block">Invalid Phone Examples</span>
+                                    <div id="phoneExamplesList" class="flex flex-wrap gap-[6px] w-full">
+                                        <!-- Populated dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expectation Card 4: Date Format -->
+                <div id="cardDateExp" class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card transition-all duration-[250ms] ease-in-out overflow-hidden hidden" style="max-height: 90px;">
+                    <div class="flex items-center justify-between cursor-pointer h-[42px]" onclick="toggleExpectation('cardDateExp', 'expDate')">
+                        <div class="flex items-center space-x-3 flex-grow max-w-md">
+                            <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-bold text-sift-darkblue font-mono truncate">expect_column_values_to_be_valid_dates</h4>
+                                <p class="text-[10px] text-slate-400 font-semibold truncate">Asserts date format alignment and chronological feasibility</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 text-[11px] font-bold text-slate-500 flex-shrink-0">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Status:</span>
+                                <span id="badgeDate" class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-emerald-50 text-emerald-800 border border-emerald-100 shadow-sm">PASSED</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Pass Rate:</span>
+                                <span id="scoreDate" class="text-xs font-extrabold text-slate-700 bg-slate-50 px-2 py-0.5 rounded">100%</span>
+                            </div>
+                            <svg id="arrowDate" class="w-4 h-4 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div id="expDate" class="pt-6 mt-6 border-t border-slate-100 text-xs transition-opacity duration-[250ms] ease-in-out opacity-0">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_1.2fr_0.8fr_1fr] gap-6 items-start">
+                            <div class="flex flex-col items-start">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Expectation Description</span>
+                                <p class="text-slate-600 font-medium leading-relaxed text-[11px] whitespace-normal break-words">Asserts standard date/time patterns and chronological range feasibility.</p>
+                                <div class="mt-3">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Severity</span>
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-rose-100 text-rose-950 border border-rose-300 shadow-sm inline-block">CRITICAL</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Affected Columns & Format</span>
+                                <div class="space-y-2">
+                                    <div>
+                                        <span class="text-[8px] font-bold text-slate-400 uppercase block mb-1">Columns</span>
+                                        <p class="text-slate-700 font-semibold font-mono whitespace-normal break-words bg-slate-50 px-3 py-2 rounded-lg border border-slate-100 min-h-[40px] text-[11px] leading-relaxed">transaction_date</p>
+                                    </div>
+                                    <div>
+                                        <span class="text-[8px] font-bold text-slate-400 uppercase block mb-1">Detected Format</span>
+                                        <span id="dateDetectedFormat" class="text-indigo-600 font-mono font-bold block text-[10px] mt-0.5 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100 min-h-[30px]">Unknown</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Evaluation Stats</span>
+                                <div class="grid grid-cols-2 gap-2 mb-2">
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Checked</span>
+                                        <span id="chkDate" class="text-slate-700 font-bold block text-sm mt-0.5">0</span>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Failed</span>
+                                        <span id="affectedDate" class="text-rose-600 font-bold block text-sm mt-0.5">0</span>
+                                        <span id="failDate" class="hidden">0</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="border border-slate-100 p-1.5 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[8px] font-bold text-slate-400 block uppercase">Min Date</span>
+                                        <span id="dateMinVal" class="text-slate-700 font-bold font-mono text-[9px] block mt-0.5 whitespace-normal break-words">N/A</span>
+                                    </div>
+                                    <div class="border border-slate-100 p-1.5 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[8px] font-bold text-slate-400 block uppercase">Max Date</span>
+                                        <span id="dateMaxVal" class="text-slate-700 font-bold font-mono text-[9px] block mt-0.5 whitespace-normal break-words">N/A</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Diagnostic Detail</span>
+                                <div class="border border-slate-100 p-2.5 rounded-xl bg-slate-50/50 mb-3">
+                                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Reason</span>
+                                    <span id="reasonDate" class="text-slate-700 font-semibold block mt-0.5 whitespace-normal break-words">All dates valid</span>
+                                </div>
+                                <div id="dateExamplesDiv" class="space-y-1.5 hidden">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block">Invalid Date Examples</span>
+                                    <div id="dateExamplesList" class="flex flex-wrap gap-[6px] w-full">
+                                        <!-- Populated dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expectation Card 5: Duplicate Analysis -->
+                <div id="cardDuplicates" class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card transition-all duration-[250ms] ease-in-out overflow-hidden" style="max-height: 90px;">
+                    <div class="flex items-center justify-between cursor-pointer h-[42px]" onclick="toggleExpectation('cardDuplicates', 'expDuplicates')">
+                        <div class="flex items-center space-x-3 flex-grow max-w-md">
+                            <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-bold text-sift-darkblue font-mono truncate">expect_column_values_to_be_unique</h4>
+                                <p class="text-[10px] text-slate-400 font-semibold truncate">Asserts that columns intended to act as keys contain unique items</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 text-[11px] font-bold text-slate-500 flex-shrink-0">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Status:</span>
+                                <span id="badgeDuplicates" class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-emerald-50 text-emerald-800 border border-emerald-100 shadow-sm">PASSED</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Pass Rate:</span>
+                                <span id="scoreDuplicates" class="text-xs font-extrabold text-slate-700 bg-slate-50 px-2 py-0.5 rounded">100%</span>
+                            </div>
+                            <svg id="arrowDuplicates" class="w-4 h-4 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div id="expDuplicates" class="pt-6 mt-6 border-t border-slate-100 text-xs transition-opacity duration-[250ms] ease-in-out opacity-0">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_1.2fr_0.8fr_1fr] gap-6 items-start">
+                            <div class="flex flex-col items-start">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Expectation Description</span>
+                                <p class="text-slate-600 font-medium leading-relaxed text-[11px] whitespace-normal break-words">Asserts that values in columns acting as unique keys are distinct.</p>
+                                <div class="mt-3">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Severity</span>
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-amber-100 text-amber-950 border border-amber-300 shadow-sm inline-block">WARNING</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Affected Columns</span>
+                                <p class="text-slate-700 font-semibold font-mono whitespace-normal break-words bg-slate-50 px-3 py-2 rounded-lg border border-slate-100 min-h-[40px] text-[11px] leading-relaxed">transaction_id</p>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Evaluation Stats</span>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Checked</span>
+                                        <span id="chkDuplicates" class="text-slate-700 font-bold block text-sm mt-0.5">0</span>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50">
+                                        <span class="text-[9px] font-bold text-slate-400 block uppercase">Duplicate Rows</span>
+                                        <span id="dupIdsCount" class="text-rose-600 font-bold block text-sm mt-0.5">0</span>
+                                        <span id="failDuplicates" class="hidden">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Duplicate Metrics Breakdown</span>
+                                <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                                    <div class="border border-slate-100 p-2 rounded-xl bg-slate-50/50">
+                                        <span class="text-[8px] font-bold text-slate-400 block uppercase">Duplicate Transaction IDs</span>
+                                        <div id="dupIdsExamples" class="text-[9px] text-slate-700 font-semibold font-mono whitespace-normal break-words mt-0.5">None</div>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl bg-slate-50/50">
+                                        <span class="text-[8px] font-bold text-slate-400 block uppercase">Duplicate Emails (<span id="dupEmailsCount" class="font-extrabold text-[9px]">0</span>)</span>
+                                        <div id="dupEmailsExamples" class="text-[9px] text-slate-700 font-semibold font-mono whitespace-normal break-words mt-0.5">None</div>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl bg-slate-50/50">
+                                        <span class="text-[8px] font-bold text-slate-400 block uppercase">Duplicate Phones (<span id="dupPhonesCount" class="font-extrabold text-[9px]">0</span>)</span>
+                                        <div id="dupPhonesExamples" class="text-[9px] text-slate-700 font-semibold font-mono whitespace-normal break-words mt-0.5">None</div>
+                                    </div>
+                                </div>
+                                <span id="reasonDuplicates" class="hidden">All keys unique</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expectation Card 6: Transactional Rules (Amount, Currency, Payment Mode) -->
+                <div id="cardTxnRulesExp" class="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm hover-card transition-all duration-[250ms] ease-in-out overflow-hidden hidden" style="max-height: 90px;">
+                    <div class="flex items-center justify-between cursor-pointer h-[42px]" onclick="toggleExpectation('cardTxnRulesExp', 'expTxnRules')">
+                        <div class="flex items-center space-x-3 flex-grow max-w-md">
+                            <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-bold text-sift-darkblue font-mono truncate">expect_transaction_values_to_be_valid</h4>
+                                <p class="text-[10px] text-slate-400 font-semibold truncate">Asserts validation constraints on currency, amount, and payment mode columns</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 text-[11px] font-bold text-slate-500 flex-shrink-0">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Status:</span>
+                                <span id="badgeTxnRules" class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-emerald-50 text-emerald-800 border border-emerald-100 shadow-sm">PASSED</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400 font-medium">Pass Rate:</span>
+                                <span id="scoreTxnRules" class="text-xs font-extrabold text-slate-700 bg-slate-50 px-2 py-0.5 rounded">100%</span>
+                            </div>
+                            <svg id="arrowTxnRules" class="w-4 h-4 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div id="expTxnRules" class="pt-6 mt-6 border-t border-slate-100 text-xs transition-opacity duration-[250ms] ease-in-out opacity-0">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.2fr_1.2fr_0.8fr_1fr] gap-6 items-start">
+                            <div class="flex flex-col items-start">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Expectation Description</span>
+                                <p class="text-slate-600 font-medium leading-relaxed text-[11px] whitespace-normal break-words">Asserts numeric limits on transaction amount, currency support, and payment modes.</p>
+                                <div class="mt-3">
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Severity</span>
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-rose-100 text-rose-950 border border-rose-300 shadow-sm inline-block">CRITICAL</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Affected Columns</span>
+                                <p class="text-slate-700 font-semibold font-mono whitespace-normal break-words bg-slate-50 px-3 py-2 rounded-lg border border-slate-100 min-h-[40px] text-[11px] leading-relaxed">amount, currency, payment_mode</p>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Evaluation Stats</span>
+                                <div class="border border-slate-100 p-2 rounded-xl text-center bg-slate-50/50 mb-2">
+                                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Total Issues</span>
+                                    <span id="failTxnRules" class="text-rose-600 font-bold block text-sm mt-0.5">0</span>
+                                </div>
+                                <div class="border border-slate-100 p-2.5 rounded-xl bg-slate-50/50">
+                                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Diagnostic Detail</span>
+                                    <span id="reasonTxnRules" class="text-slate-700 font-semibold block mt-0.5 whitespace-normal break-words">All metrics valid</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block mb-1">Rule Integrity Breakdown</span>
+                                <div class="space-y-2">
+                                    <div class="border border-slate-100 p-2 rounded-xl flex items-center justify-between bg-slate-50/50">
+                                        <div>
+                                            <span class="text-[8px] font-bold text-slate-400 block uppercase">Currency</span>
+                                            <span id="badgeCurrency" class="px-1.5 py-0.5 rounded text-[8px] font-bold mt-0.5 inline-block">PASSED</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-[8px] font-bold text-slate-400 block uppercase">Affected</span>
+                                            <span id="affectedCurrency" class="text-slate-700 font-bold text-[10px]">0</span>
+                                        </div>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl flex items-center justify-between bg-slate-50/50">
+                                        <div>
+                                            <span class="text-[8px] font-bold text-slate-400 block uppercase">Payment Mode</span>
+                                            <span id="badgePaymentMode" class="px-1.5 py-0.5 rounded text-[8px] font-bold mt-0.5 inline-block">PASSED</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-[8px] font-bold text-slate-400 block uppercase">Affected</span>
+                                            <span id="affectedPaymentMode" class="text-slate-700 font-bold text-[10px]">0</span>
+                                        </div>
+                                    </div>
+                                    <div class="border border-slate-100 p-2 rounded-xl flex items-center justify-between bg-slate-50/50">
+                                        <div>
+                                            <span class="text-[8px] font-bold text-slate-400 block uppercase">Amount</span>
+                                            <span id="badgeAmount" class="px-1.5 py-0.5 rounded text-[8px] font-bold mt-0.5 inline-block">PASSED</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-[8px] font-bold text-slate-400 block uppercase">Affected</span>
+                                            <span id="affectedAmount" class="text-slate-700 font-bold text-[10px]">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Aggregated Issue Logs Table -->
+        <div id="issueLogsSection" class="hidden space-y-4">
+            <div class="flex items-center space-x-2">
+                <span class="text-xs font-extrabold tracking-widest text-slate-400 uppercase">Aggregated Quality Issues Log</span>
+                <span class="bg-rose-50 text-rose-800 text-[10px] font-bold px-2 py-0.5 rounded-full">ACTION REQUIRED</span>
+            </div>
+            
+            <div class="border border-slate-100 bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="border-b border-slate-100 bg-slate-50 text-slate-400 font-extrabold tracking-wider uppercase text-[10px]">
+                                <th class="px-4 py-3">Expectation Rule</th>
+                                <th class="px-4 py-3">Column</th>
+                                <th class="px-4 py-3">Issue Detail</th>
+                                <th class="px-4 py-3 text-center">Severity</th>
+                                <th class="px-4 py-3 text-center">Recoverability</th>
+                                <th class="px-4 py-3 text-center">Failed Rows</th>
+                                <th class="px-4 py-3">Sample Invalid Values</th>
+                            </tr>
+                        </thead>
+                        <tbody id="issueLogsRows" class="text-slate-600 font-semibold divide-y divide-slate-50 bg-white">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: All Clear Success State -->
+        <div id="noIssuesAlert" class="hidden border border-emerald-100 bg-emerald-50/20 text-emerald-800 rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-4">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            <div class="space-y-1 text-center sm:text-left">
+                <h4 class="font-extrabold font-outfit text-slate-800 text-base">All expectations passed successfully!</h4>
+                <p class="text-slate-500 text-xs font-semibold">No issues were detected in this dataset. It conforms 100% to all data quality assertions.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Collapsible Expectation Cards Toggle Function
+        function toggleExpectation(cardId, expId) {
+            if (!expId) {
+                expId = cardId;
+                cardId = 'card' + expId.replace('exp', '') + 'Exp';
+                if (expId === 'expDuplicates') cardId = 'cardDuplicates';
+            }
+            const card = document.getElementById(cardId);
+            const panel = document.getElementById(expId);
+            const arrow = document.getElementById('arrow' + expId.replace('exp', ''));
+            if (card && panel && arrow) {
+                const isCollapsed = card.style.maxHeight === '90px' || card.style.maxHeight === '';
+                if (isCollapsed) {
+                    card.style.maxHeight = card.scrollHeight + 'px';
+                    panel.style.opacity = '1';
+                    arrow.classList.add('rotate-180');
+                    // After transition, set max-height to none to allow dynamic content to expand card
+                    setTimeout(() => {
+                        if (card.style.maxHeight !== '90px') {
+                            card.style.maxHeight = 'none';
+                        }
+                    }, 250);
+                } else {
+                    card.style.maxHeight = card.scrollHeight + 'px';
+                    // Force repaint
+                    card.offsetHeight;
+                    card.style.maxHeight = '90px';
+                    panel.style.opacity = '0';
+                    arrow.classList.remove('rotate-180');
+                }
+            }
+        }
+
+        function dismissHintBanner() {
+            const banner = document.getElementById('dismissibleHintBanner');
+            if (banner) banner.style.display = 'none';
+            localStorage.setItem('sift_hint_dismissed', 'true');
+        }
+
+        // Hide banner if dismissed
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('sift_hint_dismissed') === 'true') {
+                const banner = document.getElementById('dismissibleHintBanner');
+                if (banner) banner.style.display = 'none';
+            }
+        });
+    </script>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="bg-white border-t border-slate-100 py-6 text-center text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between">
+        <p class="flex items-center space-x-2">
+            <span>Validation completed</span>
+            <span class="text-slate-300">&bull;</span>
+            <span id="footerExpectationsCount">0 expectations evaluated</span>
+            <span class="text-slate-300">&bull;</span>
+            <span id="footerLastAnalysis">Last analysis: just now</span>
+        </p>
+        <div class="mt-2 sm:mt-0 flex items-center space-x-1 text-slate-500 font-semibold bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse mr-1"></span>
+            <span>Pipeline: Active</span>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/validate.js') }}"></script>
+{% endblock %}

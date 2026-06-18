@@ -1,0 +1,82 @@
+[
+  {
+    "row": 1,
+    "column": "order_id",
+    "original": "ORD-101",
+    "cleaned": "DELETED",
+    "action": "duplicate_removal",
+    "severity": "ERROR"
+  },
+  {
+    "row": 2,
+    "column": "order_date",
+    "original": "16/06/2026",
+    "cleaned": "2026-06-16",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "order_id",
+    "original": "ORD-101",
+    "cleaned": "DELETED",
+    "action": "duplicate_removal",
+    "severity": "ERROR"
+  },
+  {
+    "row": 4,
+    "column": "country",
+    "original": "USA",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "mobile",
+    "original": "12345",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 5,
+    "column": "country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "mobile",
+    "original": "+1 202 555 0192",
+    "cleaned": "2025550192",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "amount",
+    "original": "-10",
+    "cleaned": "ERROR",
+    "action": "Negative amount",
+    "severity": "ERROR"
+  },
+  {
+    "row": 6,
+    "column": "mobile",
+    "original": "971501234567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "payment_method",
+    "original": "Unknown_Mode",
+    "cleaned": "ERROR",
+    "action": "Unsupported payment mode",
+    "severity": "ERROR"
+  }
+]

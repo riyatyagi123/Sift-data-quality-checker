@@ -1,0 +1,3 @@
+invoice_no,contact_number,region,price,mode,created_at
+INV-301,447911123456,UK,50,BANK_TRANSFER,16-06-2026
+INV-302,0491570156,Australia,150,COD,2026/06/16

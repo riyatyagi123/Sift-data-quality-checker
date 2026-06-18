@@ -1,0 +1,6 @@
+transaction_id,customer_id,country,phone_number,transaction_date,transaction_time,payment_mode,amount,currency,customer_name
+TXN-10002,CUST-29182,Singapore,81234567,2026-06-16,09:12:00,Credit Card,120.50,SGD,Aakarsh Wason
+TXN-10003,CUST-99201,United States,3125550192,2026-05-24,18:45:30,WALLET,15.99,USD,Aaryahi Shenoy
+TXN-10004,CUST-10492,United Kingdom,07911123456,2026-04-10,11:30:15,BANK_TRANSFER,2500.00,GBP,Jayesh Jha
+TXN-10005,CUST-58302,Australia,0491570156,2026-06-16,22:15:00,COD,45.00,AUD,Armaan Sarna
+TXN-10006,CUST-11928,United Arab Emirates,0501234567,2026-06-16,13:05:00,Credit Card,600.00,AED,Ritvik Chatterjee
