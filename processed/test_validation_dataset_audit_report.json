@@ -1,0 +1,2498 @@
+[
+  {
+    "row": 1,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 1,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 1,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Phone_Number",
+    "original": "(415) 555-2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Transaction_Date",
+    "original": "12/31/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "Transaction_Date",
+    "original": "31/12/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "Transaction_Time",
+    "original": "23:59:59.123",
+    "cleaned": "23:59:59",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Phone_Number",
+    "original": "+971 50 123 4567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Transaction_Date",
+    "original": "01-01-2025",
+    "cleaned": "2025-01-01",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Transaction_Time",
+    "original": "00:00",
+    "cleaned": "00:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Phone_Number",
+    "original": "+61 412 345 678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Transaction_Date",
+    "original": "15/08/2024",
+    "cleaned": "2024-08-15",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Transaction_Time",
+    "original": "14:30",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Phone_Number",
+    "original": "09876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Transaction_Date",
+    "original": "29-02-2024",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Transaction_Time",
+    "original": "12:00",
+    "cleaned": "12:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Transaction_Date",
+    "original": "02/29/2024",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Transaction_Time",
+    "original": "00:15",
+    "cleaned": "00:15:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Phone_Number",
+    "original": "+44-20-7946-0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Transaction_Time",
+    "original": "08:05",
+    "cleaned": "08:05:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "Phone_Number",
+    "original": "+91 9123456780",
+    "cleaned": "9123456780",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "Transaction_Date",
+    "original": "14-Aug-2024",
+    "cleaned": "2024-08-14",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "Transaction_Time",
+    "original": "07:30",
+    "cleaned": "07:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Phone_Number",
+    "original": "+1 212 555 0199",
+    "cleaned": "2125550199",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Transaction_Date",
+    "original": "Wed, 31 Dec 2024 10:00:00 GMT",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "Transaction_Date",
+    "original": "2024-12-31T23:59:59Z",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "Transaction_Time",
+    "original": "23:59:59Z",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 14,
+    "column": "Phone_Number",
+    "original": "+65 9876 5432",
+    "cleaned": "98765432",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "Transaction_Date",
+    "original": "2024-02-29T12:34:56+08:00",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "Transaction_Time",
+    "original": "12:34:56.789",
+    "cleaned": "12:34:56",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Phone_Number",
+    "original": "+91 9999999999",
+    "cleaned": "9999999999",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Transaction_Date",
+    "original": "31/01/2025",
+    "cleaned": "2025-01-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Transaction_Time",
+    "original": "9:00 AM",
+    "cleaned": "09:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Transaction_Date",
+    "original": "01/15/2025",
+    "cleaned": "2025-01-15",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Transaction_Time",
+    "original": "13:05",
+    "cleaned": "13:05:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Phone_Number",
+    "original": "555-012-3456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 17,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "Phone_Number",
+    "original": "+44 7700 900123",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 18,
+    "column": "Phone_Number",
+    "original": "0412 345 678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Transaction_Date",
+    "original": "18/06/2025",
+    "cleaned": "2025-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Transaction_Time",
+    "original": "18:06",
+    "cleaned": "18:06:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "Phone_Number",
+    "original": "+971501234567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Phone_Number",
+    "original": "+65 6789 0123",
+    "cleaned": "67890123",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 24,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 24,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 24,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 25,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 25,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 25,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 26,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 26,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 26,
+    "column": "Phone_Number",
+    "original": "+91 98765AB210",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 27,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 27,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 27,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 28,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 28,
+    "column": "Transaction_Date",
+    "original": "12/31/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 28,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 28,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 29,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 29,
+    "column": "Transaction_Date",
+    "original": "31/12/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 29,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 30,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 30,
+    "column": "Transaction_Date",
+    "original": "2024-13-01",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 31,
+    "column": "Phone_Number",
+    "original": "+971 50 123 4567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 31,
+    "column": "Transaction_Time",
+    "original": "00:00",
+    "cleaned": "00:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 31,
+    "column": "Transaction_Date",
+    "original": "2024-02-30",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 32,
+    "column": "Phone_Number",
+    "original": "+61 412 345 678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 32,
+    "column": "Transaction_Time",
+    "original": "14:30",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 32,
+    "column": "Transaction_Date",
+    "original": "31-04-2024",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 33,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 33,
+    "column": "Transaction_Time",
+    "original": "12:00",
+    "cleaned": "12:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 33,
+    "column": "Transaction_Date",
+    "original": "29-02-2023",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 34,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 34,
+    "column": "Transaction_Date",
+    "original": "02/29/2024",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 34,
+    "column": "Transaction_Time",
+    "original": "00:15",
+    "cleaned": "00:15:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 34,
+    "column": "Phone_Number",
+    "original": "(415) 555-267",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 35,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 35,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 35,
+    "column": "Transaction_Time",
+    "original": "25:00",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 36,
+    "column": "Transaction_Time",
+    "original": "24:01",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 37,
+    "column": "Phone_Number",
+    "original": "+91 9123456780",
+    "cleaned": "9123456780",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 37,
+    "column": "Transaction_Date",
+    "original": "14-Aug-2024",
+    "cleaned": "2024-08-14",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 37,
+    "column": "Transaction_Time",
+    "original": "07:60",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 38,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 38,
+    "column": "Phone_Number",
+    "original": "+1 212 555 0199",
+    "cleaned": "2125550199",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 38,
+    "column": "Transaction_Date",
+    "original": "Wed, 31 Dec 2024 10:00:00 GMT",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 38,
+    "column": "Transaction_Time",
+    "original": "10:00:60",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 39,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 39,
+    "column": "Transaction_Date",
+    "original": "2024-12-31T23:59:59Z",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 39,
+    "column": "Transaction_Time",
+    "original": "99:99",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 40,
+    "column": "Phone_Number",
+    "original": "+65 9876 5432",
+    "cleaned": "98765432",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 40,
+    "column": "Transaction_Date",
+    "original": "2024-02-29T12:34:56+08:00",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 40,
+    "column": "Transaction_Time",
+    "original": "2024-02-29T12:34:56+08:00",
+    "cleaned": "12:34:56",
+    "action": "Time Extraction",
+    "severity": "INFO"
+  },
+  {
+    "row": 41,
+    "column": "Phone_Number",
+    "original": "+91 9999999999",
+    "cleaned": "9999999999",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 41,
+    "column": "Transaction_Time",
+    "original": "9:00 AM",
+    "cleaned": "09:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 41,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 42,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 42,
+    "column": "Transaction_Date",
+    "original": "01/15/2025",
+    "cleaned": "2025-01-15",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 42,
+    "column": "Phone_Number",
+    "original": "555-012-3456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 42,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 43,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 43,
+    "column": "Phone_Number",
+    "original": "+44 7700 900123",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 43,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 44,
+    "column": "Phone_Number",
+    "original": "0412 345 678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 44,
+    "column": "Transaction_Date",
+    "original": "18/06/2025",
+    "cleaned": "2025-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 44,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 45,
+    "column": "Phone_Number",
+    "original": "+971501234567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 45,
+    "column": "Transaction_Date",
+    "original": "garbage-date",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 46,
+    "column": "Phone_Number",
+    "original": "+65 6789 0123",
+    "cleaned": "67890123",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 46,
+    "column": "Transaction_Time",
+    "original": "garbage-time",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 47,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 47,
+    "column": "Transaction_Date",
+    "original": "2024-02-29T12:34:56+05:30",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 48,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 48,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 48,
+    "column": "Transaction_Date",
+    "original": "2024-12-31T23:59:59Z",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 48,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 49,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 49,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 49,
+    "column": "Transaction_Date",
+    "original": "2024-12-31T23:59:59.999Z",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 49,
+    "column": "Transaction_Time",
+    "original": "23:59:59.999",
+    "cleaned": "23:59:59",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 50,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 50,
+    "column": "Transaction_Date",
+    "original": "2024-02-29T00:00:00+08:00",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 50,
+    "column": "Transaction_Time",
+    "original": "00:00:00.000001",
+    "cleaned": "00:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 51,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 51,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 51,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 52,
+    "column": "Phone_Number",
+    "original": "+91 9123456780",
+    "cleaned": "9123456780",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 52,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 52,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 53,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 53,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 54,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 54,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 54,
+    "column": "Transaction_Date",
+    "original": "12/31/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 54,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 55,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 55,
+    "column": "Transaction_Date",
+    "original": "12/31/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 55,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 56,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 56,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 56,
+    "column": "Transaction_Date",
+    "original": "31/12/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 57,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 57,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 57,
+    "column": "Transaction_Date",
+    "original": "31/12/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 58,
+    "column": "Phone_Number",
+    "original": "+61 412 345 678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 58,
+    "column": "Transaction_Time",
+    "original": "18:06",
+    "cleaned": "18:06:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 59,
+    "column": "Phone_Number",
+    "original": "+61 412 345 678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 59,
+    "column": "Transaction_Date",
+    "original": "18/06/2025",
+    "cleaned": "2025-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 59,
+    "column": "Transaction_Time",
+    "original": "18:06",
+    "cleaned": "18:06:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 60,
+    "column": "Phone_Number",
+    "original": "+971 50 123 4567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 61,
+    "column": "Phone_Number",
+    "original": "+971501234567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 62,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 62,
+    "column": "Transaction_Time",
+    "original": "08:05",
+    "cleaned": "08:05:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 63,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 63,
+    "column": "Transaction_Time",
+    "original": "08:05",
+    "cleaned": "08:05:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 64,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 64,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 64,
+    "column": "Phone_Number",
+    "original": "0009876543210",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 65,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 65,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 65,
+    "column": "Phone_Number",
+    "original": "+1 000 555 0199",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 66,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 66,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 66,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 67,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 67,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 68,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 68,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 68,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 69,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 69,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 69,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 70,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 70,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 71,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 71,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 71,
+    "column": "Phone_Number",
+    "original": "abcd1234",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 72,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 72,
+    "column": "Transaction_Date",
+    "original": "12/31/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 72,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 72,
+    "column": "Phone_Number",
+    "original": "+1-415-555-ABCD",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 73,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 73,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958 ext 12",
+    "cleaned": "0207946095812",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 73,
+    "column": "Transaction_Date",
+    "original": "31/12/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 74,
+    "column": "Phone_Number",
+    "original": "+61 4 1234 5678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 74,
+    "column": "Transaction_Date",
+    "original": "18/06/2025",
+    "cleaned": "2025-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 74,
+    "column": "Transaction_Time",
+    "original": "18:06",
+    "cleaned": "18:06:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 75,
+    "column": "Phone_Number",
+    "original": "+971 50 123 4567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 75,
+    "column": "Transaction_Date",
+    "original": "2025/07/01",
+    "cleaned": "2025-07-01",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 76,
+    "column": "Phone_Number",
+    "original": "+65-6123-4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 76,
+    "column": "Transaction_Date",
+    "original": "01-03-2024",
+    "cleaned": "2024-01-03",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 76,
+    "column": "Transaction_Time",
+    "original": "08:05",
+    "cleaned": "08:05:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 77,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 77,
+    "column": "Transaction_Date",
+    "original": "2024-02-29T12:34:56Z",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 78,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 78,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 78,
+    "column": "Transaction_Date",
+    "original": "2024-12-31T23:59:59Z",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 79,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 79,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 79,
+    "column": "Transaction_Date",
+    "original": "2024-12-31T23:59:59+00:00",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 79,
+    "column": "Transaction_Time",
+    "original": "23:59:59+00:00",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 80,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 80,
+    "column": "Transaction_Date",
+    "original": "2024-02-29T12:34:56.123456+08:00",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 80,
+    "column": "Transaction_Time",
+    "original": "12:34:56.123456",
+    "cleaned": "12:34:56",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 81,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 81,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 81,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 82,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 82,
+    "column": "Transaction_Date",
+    "original": "31-12-2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 82,
+    "column": "Transaction_Time",
+    "original": "23:59",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 83,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 83,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 83,
+    "column": "Transaction_Date",
+    "original": "12/31/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 83,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 84,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 84,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 84,
+    "column": "Transaction_Date",
+    "original": "12/31/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 84,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 85,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 85,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 85,
+    "column": "Transaction_Date",
+    "original": "31/12/2024",
+    "cleaned": "2024-12-31",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 86,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 86,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 86,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 87,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 87,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 87,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 87,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 88,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 88,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 88,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 88,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 89,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 89,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 89,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 90,
+    "column": "Phone_Number",
+    "original": "garbage",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 90,
+    "column": "Transaction_Date",
+    "original": "2024-02-30",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 90,
+    "column": "Transaction_Time",
+    "original": "99:99:99",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 91,
+    "column": "Phone_Number",
+    "original": "+61 412 345 678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 91,
+    "column": "Transaction_Date",
+    "original": "Mon, 01 Apr 2024 10:20:30 GMT",
+    "cleaned": "2024-04-01",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 92,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 92,
+    "column": "Transaction_Date",
+    "original": "2024-04-01T10:20:30.123Z",
+    "cleaned": "2024-04-01",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 92,
+    "column": "Transaction_Time",
+    "original": "10:20:30.123",
+    "cleaned": "10:20:30",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 93,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 93,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 93,
+    "column": "Transaction_Date",
+    "original": "2024-04-01T10:20:30.123456Z",
+    "cleaned": "2024-04-01",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 93,
+    "column": "Transaction_Time",
+    "original": "10:20:30.123456",
+    "cleaned": "10:20:30",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 94,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 94,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 94,
+    "column": "Transaction_Date",
+    "original": "2024-04-01T10:20:30+00:00",
+    "cleaned": "2024-04-01",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 94,
+    "column": "Transaction_Time",
+    "original": "10:20:30+00:00",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 95,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 95,
+    "column": "Transaction_Time",
+    "original": "10:20",
+    "cleaned": "10:20:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 96,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 97,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 97,
+    "column": "Phone_Number",
+    "original": "+1 415 555 2671",
+    "cleaned": "4155552671",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 97,
+    "column": "Transaction_Time",
+    "original": "10:20:00.500",
+    "cleaned": "10:20:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 98,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 98,
+    "column": "Phone_Number",
+    "original": "+44 20 7946 0958",
+    "cleaned": "02079460958",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 98,
+    "column": "Transaction_Time",
+    "original": "10:20:00.500000",
+    "cleaned": "10:20:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 99,
+    "column": "Phone_Number",
+    "original": "+65 6123 4567",
+    "cleaned": "61234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 100,
+    "column": "Phone_Number",
+    "original": "+91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T021\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T022\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T023\", \"Country\": \"United States\", \"Phone_Number\": \"4155552671\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T024\", \"Country\": \"United States\", \"Phone_Number\": \"4155552671\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T040\", \"Country\": \"Singapore\", \"Phone_Number\": \"98765432\", \"Transaction_Date\": \"2024-02-29\", \"Transaction_Time\": \"12:34:56\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 25,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T048\", \"Country\": \"United States\", \"Phone_Number\": \"4155552671\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 26,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T049\", \"Country\": \"United Kingdom\", \"Phone_Number\": \"02079460958\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:59\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 28,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T051\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 30,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T053\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 31,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T054\", \"Country\": \"United States\", \"Phone_Number\": \"4155552671\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 32,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T055\", \"Country\": \"United States\", \"Phone_Number\": \"4155552671\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 33,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T056\", \"Country\": \"United Kingdom\", \"Phone_Number\": \"02079460958\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:59\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 34,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T057\", \"Country\": \"United Kingdom\", \"Phone_Number\": \"02079460958\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:59\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 35,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T058\", \"Country\": \"Australia\", \"Phone_Number\": \"0412345678\", \"Transaction_Date\": \"2025-06-18\", \"Transaction_Time\": \"18:06:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 36,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T059\", \"Country\": \"Australia\", \"Phone_Number\": \"0412345678\", \"Transaction_Date\": \"2025-06-18\", \"Transaction_Time\": \"18:06:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 37,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T060\", \"Country\": \"UAE\", \"Phone_Number\": \"0501234567\", \"Transaction_Date\": \"2025-07-01\", \"Transaction_Time\": \"07:01:01\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 38,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T061\", \"Country\": \"UAE\", \"Phone_Number\": \"0501234567\", \"Transaction_Date\": \"2025-07-01\", \"Transaction_Time\": \"07:01:01\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 39,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T062\", \"Country\": \"Singapore\", \"Phone_Number\": \"61234567\", \"Transaction_Date\": \"2024-03-01\", \"Transaction_Time\": \"08:05:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 40,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T063\", \"Country\": \"Singapore\", \"Phone_Number\": \"61234567\", \"Transaction_Date\": \"2024-03-01\", \"Transaction_Time\": \"08:05:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 44,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T069\", \"Country\": \"United Kingdom\", \"Phone_Number\": \"02079460958\", \"Transaction_Date\": \"2024-02-29\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 47,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T074\", \"Country\": \"Australia\", \"Phone_Number\": \"0412345678\", \"Transaction_Date\": \"2025-06-18\", \"Transaction_Time\": \"18:06:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 48,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T075\", \"Country\": \"UAE\", \"Phone_Number\": \"0501234567\", \"Transaction_Date\": \"2025-07-01\", \"Transaction_Time\": \"07:01:01\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 50,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T077\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2024-02-29\", \"Transaction_Time\": \"12:34:56\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 53,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T081\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 54,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T082\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 55,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T083\", \"Country\": \"United States\", \"Phone_Number\": \"4155552671\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 56,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T084\", \"Country\": \"United States\", \"Phone_Number\": \"4155552671\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 57,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T085\", \"Country\": \"United Kingdom\", \"Phone_Number\": \"02079460958\", \"Transaction_Date\": \"2024-12-31\", \"Transaction_Time\": \"23:59:59\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 65,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T099\", \"Country\": \"Singapore\", \"Phone_Number\": \"61234567\", \"Transaction_Date\": \"2024-04-01\", \"Transaction_Time\": \"10:20:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 66,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"T100\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2024-04-01\", \"Transaction_Time\": \"10:20:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  }
+]

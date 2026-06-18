@@ -1,0 +1,32 @@
+id,country,phone_number,expected_result,notes
+1,India,9876543210,VALID,Standard Indian number
+2,India,9876543210,VALID,Indian with country code
+3,India,9876543210,VALID,Indian with prefix and space
+4,India,9876543210,VALID,Indian formatted with spaces
+5,India,9876543210,INVALID,Leading zero not allowed
+6,India,1234567890,INVALID,Starts with 1
+9,Singapore,81234567,VALID,Standard Singapore number
+10,Singapore,81234567,VALID,Singapore with country code
+11,Singapore,81234567,VALID,Singapore international
+14,United States,2025550183,VALID,Standard US number
+15,United States,2025550183,VALID,US with country code
+16,United States,2025550183,VALID,US international
+20,United Kingdom,07911123456,VALID,Standard UK mobile
+21,United Kingdom,07911123456,VALID,UK with country code
+22,United Kingdom,07911123456,VALID,UK international
+25,Australia,0491570156,VALID,Standard Australian mobile
+26,Australia,0491570156,VALID,Australia with country code
+27,Australia,0491570156,VALID,Australia international
+30,UAE,0501234567,VALID,Standard UAE mobile
+31,UAE,0501234567,VALID,UAE with country code
+32,UAE,0501234567,VALID,UAE international
+35,Germany,01701234567,WARNING,Unsupported country
+36,France,0612345678,WARNING,Unsupported country
+37,Canada,4165550123,WARNING,Unsupported country
+38,Brazil,11999999999,WARNING,Unsupported country
+39,India,9876543210,VALID,Duplicate candidate
+40,India,9876543210,VALID,Duplicate candidate
+41,India,9876543210,VALID,Leading and trailing spaces
+42,India,9876543210,VALID,Hyphen formatting
+43,India,9876543210,VALID,Bracket formatting
+44,India,9876543210,INVALID,Unicode digits

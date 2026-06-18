@@ -1,0 +1,418 @@
+[
+  {
+    "row": 2,
+    "column": "phone_number",
+    "original": "+919876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "phone_number",
+    "original": "91 9876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "phone_number",
+    "original": "+91 98765 43210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "phone_number",
+    "original": "09876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "phone_number",
+    "original": "98765",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 8,
+    "column": "phone_number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 10,
+    "column": "phone_number",
+    "original": "6581234567",
+    "cleaned": "81234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "phone_number",
+    "original": "+6581234567",
+    "cleaned": "81234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "phone_number",
+    "original": "71234567",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 13,
+    "column": "phone_number",
+    "original": "8123456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 14,
+    "column": "country",
+    "original": "USA",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "country",
+    "original": "USA",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "phone_number",
+    "original": "12025550183",
+    "cleaned": "2025550183",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "country",
+    "original": "USA",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "phone_number",
+    "original": "+12025550183",
+    "cleaned": "2025550183",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "country",
+    "original": "USA",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "phone_number",
+    "original": "0000000000",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 18,
+    "column": "country",
+    "original": "USA",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "phone_number",
+    "original": "1234567890",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 19,
+    "column": "country",
+    "original": "USA",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "phone_number",
+    "original": "202555018",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 20,
+    "column": "country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "phone_number",
+    "original": "447911123456",
+    "cleaned": "07911123456",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "phone_number",
+    "original": "+447911123456",
+    "cleaned": "07911123456",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "phone_number",
+    "original": "7911123456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 24,
+    "column": "country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 24,
+    "column": "phone_number",
+    "original": "07123",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 26,
+    "column": "phone_number",
+    "original": "61491570156",
+    "cleaned": "0491570156",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 27,
+    "column": "phone_number",
+    "original": "+61491570156",
+    "cleaned": "0491570156",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 28,
+    "column": "phone_number",
+    "original": "491570156",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 29,
+    "column": "phone_number",
+    "original": "04123",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 31,
+    "column": "phone_number",
+    "original": "971501234567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 32,
+    "column": "phone_number",
+    "original": "+971501234567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 33,
+    "column": "phone_number",
+    "original": "501234567",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 34,
+    "column": "phone_number",
+    "original": "05012345",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 35,
+    "column": "phone_number",
+    "original": "+491701234567",
+    "cleaned": "01701234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 36,
+    "column": "phone_number",
+    "original": "+33612345678",
+    "cleaned": "0612345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 37,
+    "column": "phone_number",
+    "original": "+14165550123",
+    "cleaned": "4165550123",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 38,
+    "column": "phone_number",
+    "original": "+5511999999999",
+    "cleaned": "11999999999",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 41,
+    "column": "phone_number",
+    "original": "+91 98765 43210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 42,
+    "column": "phone_number",
+    "original": "98765-43210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 43,
+    "column": "phone_number",
+    "original": "(98765)43210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 44,
+    "column": "phone_number",
+    "original": "\u096f\u096e\u096d\u096c\u096b\u096a\u0969\u0968\u0967\u0966",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 45,
+    "column": "phone_number",
+    "original": "abcdefghij",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 46,
+    "column": "phone_number",
+    "original": "987654321O",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 47,
+    "column": "phone_number",
+    "original": "999999999999999",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 48,
+    "column": "phone_number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 49,
+    "column": "phone_number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 50,
+    "column": "phone_number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  }
+]

@@ -1,0 +1,234 @@
+[
+  {
+    "row": 1,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Phone_Number",
+    "original": "7911123456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 11,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "Phone_Number",
+    "original": "501234567",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 12,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Phone_Number",
+    "original": "412345678",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 13,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 24,
+    "column": "Transaction_Date",
+    "original": "29-02-2024",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 25,
+    "column": "Transaction_Date",
+    "original": "29-02-2024",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 26,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  }
+]

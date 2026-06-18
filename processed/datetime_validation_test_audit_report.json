@@ -1,0 +1,418 @@
+[
+  {
+    "row": 1,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 1,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Transaction_Time",
+    "original": "02:30:45 PM",
+    "cleaned": "14:30:45",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Transaction_Date",
+    "original": "31-02-2026",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 6,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Transaction_Time",
+    "original": "02:30:45 PM",
+    "cleaned": "14:30:45",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Transaction_Date",
+    "original": "13/18/2026",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 7,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Transaction_Date",
+    "original": "2026-13-18",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 8,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Transaction_Time",
+    "original": "24:00:00",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 9,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Transaction_Time",
+    "original": "25:30:45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 10,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Transaction_Time",
+    "original": "14:61:45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 11,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "Transaction_Time",
+    "original": "12:30 PM",
+    "cleaned": "12:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Transaction_Time",
+    "original": "11:30:60",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 13,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 14,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "2026-06-18",
+    "action": "missing_imputation",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "Transaction_Time",
+    "original": "02:30:45 PM",
+    "cleaned": "14:30:45",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Transaction_Date",
+    "original": "2026-06-18T14:30:45Z",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 16,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Transaction_Time",
+    "original": "2:5:9",
+    "cleaned": "02:05:09",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Transaction_Time",
+    "original": "14:30",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "Transaction_Time",
+    "original": "14:30:45.123",
+    "cleaned": "14:30:45",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Transaction_Time",
+    "original": "14-30-45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  }
+]

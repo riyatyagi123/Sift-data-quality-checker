@@ -1,0 +1,1330 @@
+[
+  {
+    "row": 1,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 1,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 2,
+    "column": "Phone_Number",
+    "original": "987654321",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 3,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "Phone_Number",
+    "original": "09876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "Phone_Number",
+    "original": "+919876543210",
+    "cleaned": "9876543210",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 4,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Phone_Number",
+    "original": "98765abc10",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 6,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Phone_Number",
+    "original": "12125551234",
+    "cleaned": "2125551234",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 7,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Phone_Number",
+    "original": "+12125551234",
+    "cleaned": "2125551234",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 8,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Phone_Number",
+    "original": "212555123",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 10,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Phone_Number",
+    "original": "abcdefghij",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 11,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "Phone_Number",
+    "original": "71234567",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 14,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "Phone_Number",
+    "original": "9123456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 15,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Phone_Number",
+    "original": "+6591234567",
+    "cleaned": "91234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 16,
+    "column": "Phone_Number",
+    "original": "7911123456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 17,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "Phone_Number",
+    "original": "+447911123456",
+    "cleaned": "07911123456",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Phone_Number",
+    "original": "791112345",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 19,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 19,
+    "column": "Phone_Number",
+    "original": "abcdefghij",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 20,
+    "column": "Country",
+    "original": "AE",
+    "cleaned": "United Arab Emirates",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Phone_Number",
+    "original": "501234567",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 21,
+    "column": "Country",
+    "original": "AE",
+    "cleaned": "United Arab Emirates",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "Phone_Number",
+    "original": "+971501234567",
+    "cleaned": "0501234567",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 21,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "Country",
+    "original": "AE",
+    "cleaned": "United Arab Emirates",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 22,
+    "column": "Phone_Number",
+    "original": "50123456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 23,
+    "column": "Country",
+    "original": "AU",
+    "cleaned": "Australia",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "Phone_Number",
+    "original": "412345678",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 24,
+    "column": "Country",
+    "original": "AU",
+    "cleaned": "Australia",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 24,
+    "column": "Phone_Number",
+    "original": "+61412345678",
+    "cleaned": "0412345678",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 24,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 25,
+    "column": "Country",
+    "original": "AU",
+    "cleaned": "Australia",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 25,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 25,
+    "column": "Phone_Number",
+    "original": "41234567",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 26,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 26,
+    "column": "Transaction_Date",
+    "original": "31-02-2026",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 27,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 27,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 27,
+    "column": "Transaction_Date",
+    "original": "13/18/2026",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 28,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 28,
+    "column": "Transaction_Date",
+    "original": "2026-13-18",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 29,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 29,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 29,
+    "column": "Phone_Number",
+    "original": "7911123456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 29,
+    "column": "Transaction_Time",
+    "original": "24:00:00",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 30,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 30,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 30,
+    "column": "Transaction_Time",
+    "original": "25:30:45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 31,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 31,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 31,
+    "column": "Transaction_Time",
+    "original": "14:61:45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 32,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 32,
+    "column": "Transaction_Time",
+    "original": "99:99:99",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 33,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 33,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 33,
+    "column": "Transaction_Time",
+    "original": "14-30-45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 34,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 34,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 34,
+    "column": "Transaction_Time",
+    "original": "abc",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 35,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 35,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 36,
+    "column": "Country",
+    "original": "UK",
+    "cleaned": "United Kingdom",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 36,
+    "column": "Transaction_Date",
+    "original": "18/06/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 36,
+    "column": "Phone_Number",
+    "original": "7911123456",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 36,
+    "column": "Transaction_Time",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 37,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 37,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 37,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 38,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 38,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 38,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 38,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 39,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 39,
+    "column": "Phone_Number",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing mandatory field",
+    "severity": "CRITICAL"
+  },
+  {
+    "row": 40,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 40,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 41,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 41,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 41,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 42,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 42,
+    "column": "Transaction_Date",
+    "original": "",
+    "cleaned": "ERROR",
+    "action": "Missing Date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 43,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 43,
+    "column": "Transaction_Date",
+    "original": "20260618",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 44,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 44,
+    "column": "Transaction_Date",
+    "original": "Thu, 18 Jun 2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 44,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 45,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 45,
+    "column": "Transaction_Date",
+    "original": "2026/06/18",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 46,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 46,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 46,
+    "column": "Transaction_Time",
+    "original": "12:00 AM",
+    "cleaned": "00:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 47,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 47,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 47,
+    "column": "Transaction_Time",
+    "original": "12:00 PM",
+    "cleaned": "12:00:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 48,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 48,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 48,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 49,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 49,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 49,
+    "column": "Transaction_Time",
+    "original": "07:08:09.999",
+    "cleaned": "07:08:09",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 50,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 50,
+    "column": "Transaction_Date",
+    "original": "18-06-2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 50,
+    "column": "Transaction_Time",
+    "original": "07:08:09.999999",
+    "cleaned": "07:08:09",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 51,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 51,
+    "column": "Transaction_Date",
+    "original": "2026-06-18T14:30:45Z",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 51,
+    "column": "Transaction_Time",
+    "original": "2026-06-18T14:30:45Z",
+    "cleaned": "14:30:45",
+    "action": "Time Extraction",
+    "severity": "INFO"
+  },
+  {
+    "row": 52,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 52,
+    "column": "Transaction_Date",
+    "original": "2026-06-18T14:30:45+05:30",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 52,
+    "column": "Transaction_Time",
+    "original": "2026-06-18T14:30:45+05:30",
+    "cleaned": "14:30:45",
+    "action": "Time Extraction",
+    "severity": "INFO"
+  },
+  {
+    "row": 53,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 53,
+    "column": "Transaction_Date",
+    "original": "2026-06-18T14:30:45.123Z",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 53,
+    "column": "Transaction_Time",
+    "original": "2026-06-18T14:30:45.123Z",
+    "cleaned": "14:30:45",
+    "action": "Time Extraction",
+    "severity": "INFO"
+  },
+  {
+    "row": 54,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 54,
+    "column": "Transaction_Date",
+    "original": "garbage",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 55,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 55,
+    "column": "Transaction_Date",
+    "original": "06/18/2026",
+    "cleaned": "2026-06-18",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 55,
+    "column": "Transaction_Time",
+    "original": "garbage",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 56,
+    "column": "Country",
+    "original": "SG",
+    "cleaned": "Singapore",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 56,
+    "column": "Phone_Number",
+    "original": "garbage",
+    "cleaned": "ERROR",
+    "action": "Invalid phone format",
+    "severity": "ERROR"
+  },
+  {
+    "row": 57,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 57,
+    "column": "Transaction_Date",
+    "original": "29-02-2024",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 58,
+    "column": "Country",
+    "original": "IN",
+    "cleaned": "India",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 58,
+    "column": "Transaction_Date",
+    "original": "29-02-2023",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  },
+  {
+    "row": 59,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 59,
+    "column": "Transaction_Date",
+    "original": "02/29/2024",
+    "cleaned": "2024-02-29",
+    "action": "date_standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 59,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 60,
+    "column": "Country",
+    "original": "US",
+    "cleaned": "United States",
+    "action": "country_mapping",
+    "severity": "INFO"
+  },
+  {
+    "row": 60,
+    "column": "Transaction_Time",
+    "original": "11:59 PM",
+    "cleaned": "23:59:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 60,
+    "column": "Transaction_Date",
+    "original": "02/29/2023",
+    "cleaned": "ERROR",
+    "action": "Invalid date",
+    "severity": "ERROR"
+  }
+]

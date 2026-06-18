@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cleanDuplicatesRemoved = document.getElementById('cleanDuplicatesRemoved');
     const cleanImputed = document.getElementById('cleanImputed');
     const cleanSuccessRate = document.getElementById('cleanSuccessRate');
+    const cleanSuccessDetail = document.getElementById('cleanSuccessDetail');
     
     // Selection and Rerun Elements
     const cleaningModeSelect = document.getElementById('cleaningModeSelect');
@@ -38,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const auditActionFilter = document.getElementById('auditActionFilter');
 
     let currentAuditTrail = [];
+
+    alignMetricInfoIcons();
 
     // Run clean engine initially on load
     runCleaning(cleaningModeSelect ? cleaningModeSelect.value : 'SMART');
@@ -132,27 +135,40 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cleanRetentionRate) cleanRetentionRate.textContent = `${retRateVal}%`;
         if (cleanCorrectionRate) cleanCorrectionRate.textContent = `${corRateVal}%`;
 
+        const repairedIssueCount = (
+            (stats.phones_fixed || 0) +
+            (stats.emails_fixed || 0) +
+            (stats.dates_fixed || 0) +
+            (stats.currencies_fixed || 0) +
+            (stats.duplicates_removed || 0) +
+            (stats.rows_imputed || 0)
+        );
+        const detectedIssueCount = repairedIssueCount + removed;
+        const issueResolutionRate = detectedIssueCount > 0 ? ((repairedIssueCount / detectedIssueCount) * 100).toFixed(1) : '100.0';
+
+        if (cleanSuccessDetail) {
+            cleanSuccessDetail.textContent = `${repairedIssueCount.toLocaleString()} / ${detectedIssueCount.toLocaleString()} issues repaired`;
+        }
+
         // Setup secondary metrics visibility
         const secondaryMetrics = [
-            { id: 'cardPhonesFixed', val: stats.phones_fixed || 0, el: cleanPhonesFixed },
+            { id: 'cardPhonesFixed', val: stats.phones_fixed || 0, el: cleanPhonesFixed, alwaysVisible: true },
             { id: 'cardEmailsFixed', val: stats.emails_fixed || 0, el: cleanEmailsFixed },
             { id: 'cardDatesFixed', val: stats.dates_fixed || 0, el: cleanDatesFixed },
             { id: 'cardCurrenciesFixed', val: stats.currencies_fixed || 0, el: cleanCurrenciesFixed },
             { id: 'cardDuplicatesRemoved', val: stats.duplicates_removed || 0, el: cleanDuplicatesRemoved },
             { id: 'cardImputed', val: stats.rows_imputed || 0, el: cleanImputed },
-            { id: 'cardSuccessRate', val: stats.success_rate || 0, el: cleanSuccessRate }
+            { id: 'cardSuccessRate', val: detectedIssueCount, el: cleanSuccessRate, displayValue: `${issueResolutionRate}%`, alwaysVisible: true }
         ];
 
-        let anySecondaryVisible = false;
         secondaryMetrics.forEach(metric => {
             const card = document.getElementById(metric.id);
             if (card) {
-                if (metric.val > 0) {
+                if (metric.val > 0 || metric.alwaysVisible) {
                     card.classList.remove('hidden');
-                    anySecondaryVisible = true;
                     if (metric.el) {
-                        if (metric.id === 'cardSuccessRate') {
-                            metric.el.textContent = `${metric.val}%`;
+                        if (metric.displayValue) {
+                            metric.el.textContent = metric.displayValue;
                         } else {
                             metric.el.textContent = metric.val.toLocaleString();
                         }
@@ -162,15 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-
-        const secondaryMetricsSection = document.getElementById('secondaryMetricsSection');
-        if (secondaryMetricsSection) {
-            if (anySecondaryVisible) {
-                secondaryMetricsSection.classList.remove('hidden');
-            } else {
-                secondaryMetricsSection.classList.add('hidden');
-            }
-        }
 
         // Populate Audit Trail Table data
         currentAuditTrail = data.audit_trail || [];
@@ -199,6 +206,24 @@ document.addEventListener('DOMContentLoaded', () => {
         // Switch screens
         loader.classList.add('hidden');
         dashboard.classList.remove('hidden');
+    }
+
+    function alignMetricInfoIcons() {
+        document.querySelectorAll('#cleanMetricsGrid > .hover-card').forEach(card => {
+            const title = card.querySelector('.space-y-1 > span:first-child');
+            const helpIcon = card.querySelector(':scope > .cursor-help.group');
+            if (!title || !helpIcon) return;
+
+            title.classList.add('inline-flex', 'items-center', 'gap-1');
+            helpIcon.className = 'clean-metric-help cursor-help group relative inline-flex items-center';
+
+            const tooltip = helpIcon.querySelector('span');
+            if (tooltip) {
+                tooltip.className = 'pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 max-w-[220px] bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-50 text-center font-normal leading-normal whitespace-normal normal-case';
+            }
+
+            title.appendChild(helpIcon);
+        });
     }
 
     function renderAuditTable() {

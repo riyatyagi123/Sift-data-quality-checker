@@ -7,8 +7,8 @@ id,transaction_date,expected_result,notes
 12,2026-00-10,INVALID,Month zero
 13,2026-01-00,INVALID,Day zero
 14,31/11/2026,INVALID,November has 30 days
-23,0000-01-01,INVALID,Missing value
-24,0000-01-01,INVALID,Empty string
+23,ERROR,INVALID,Missing value
+24,ERROR,INVALID,Empty string
 25,abcdef,INVALID,Garbage text
 26,12345,INVALID,Short digits
 27,99999999,INVALID,Numeric garbage

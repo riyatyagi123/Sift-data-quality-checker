@@ -7,8 +7,8 @@ id,transaction_date,expected_result,notes
 12,2026-00-10,INVALID,Month zero
 13,2026-01-00,INVALID,Day zero
 14,31/11/2026,INVALID,November has 30 days
-23,0000-01-01,INVALID,Missing value
-24,0000-01-01,INVALID,Empty string
+23,ERROR,INVALID,Missing value
+24,ERROR,INVALID,Empty string
 25,abcdef,INVALID,Garbage text
 26,12345,INVALID,Short digits
 27,99999999,INVALID,Numeric garbage
@@ -19,3 +19,7 @@ id,transaction_date,expected_result,notes
 35,2026-02-29T12:00:00,INVALID,Non leap year timestamp
 37,0000-01-01,INVALID,Year zero
 40,18-13-2026,INVALID,Month 13 in DD-MM-YYYY
+18,2099-01-01,WARNING,Future date
+19,1900-01-01,WARNING,Ancient date
+20,1800-01-01,WARNING,Very old date
+38,9999-12-31,VALID,Maximum year

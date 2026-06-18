@@ -11,6 +11,7 @@ import logging
 # Submodules
 from services.phone_validator import load_country_rules, get_country_key, normalize_phone_value, validate_phone
 from services.date_validator import validate_date, check_date_warnings, clean_date_val, parse_date
+from services.time_validator import normalize_time, validate_time
 from services.email_validator import validate_email
 from services.duplicate_detector import detect_all_duplicates
 from services.quality_score import get_issue_severity, classify_quality_rating, calculate_overall_score
@@ -44,6 +45,10 @@ DEFAULT_ALIASES = {
         "date", "order_date", "transaction_date", "created_at", "timestamp",
         "signup_date", "transactiondate", "signupdate",
         "joined", "createdon", "signup"
+    ],
+    "transaction_time": [
+        "time", "transaction_time", "order_time", "payment_time",
+        "transactiontime", "ordertime", "paymenttime"
     ],
     "amount": [
         "amount", "price", "total", "total_amount", "total_price",
@@ -149,6 +154,10 @@ def is_missing_value(val) -> bool:
         return True
     return False
 
+def dayfirst_for_country(country_val: str, fallback: bool | None = None) -> bool | None:
+    """US dates are month-first; other countries keep the existing parser behavior."""
+    return False if get_country_key(country_val) == 'US' else fallback
+
 def normalize_numeric_string(val_str: str) -> str:
     """Strips currency symbols, codes, commas, and spaces from a numeric value."""
     val_str = val_str.replace(',', '')
@@ -231,6 +240,7 @@ def validate_csv(filepath: str) -> dict:
     run_checks = {
         'phone': True,
         'date': True,
+        'time': True,
         'mandatory': True,
         'integrity': True,
         'duplicates': True,
@@ -240,7 +250,6 @@ def validate_csv(filepath: str) -> dict:
     }
     
     if dataset_type == "Customer Dataset":
-        run_checks['duplicates'] = False
         run_checks['currency'] = False
         run_checks['payment_mode'] = False
         
@@ -295,6 +304,7 @@ def validate_csv(filepath: str) -> dict:
     # Detect duplicates using duplicate detector
     dup_results = detect_all_duplicates(df, col_map)
     duplicate_ids_mask = dup_results['duplicate_ids_mask']
+    duplicate_business_mask = dup_results['duplicate_business_mask']
     
     # Initialize error lists per row to preserve existing error/warning logs
     row_errors_list = [[] for _ in range(total_records)]
@@ -305,6 +315,7 @@ def validate_csv(filepath: str) -> dict:
     integrity_affected_indices = set()
     duplicates_affected_indices = set()
     date_affected_indices = set()
+    time_affected_indices = set()
     phone_affected_indices = set()
     email_affected_indices = set()
     curr_affected_indices = set()
@@ -314,6 +325,7 @@ def validate_csv(filepath: str) -> dict:
     phone_col = col_map.get('phone_number')
     country_col = col_map.get('country')
     date_col = col_map.get('transaction_date')
+    time_col = col_map.get('transaction_time')
     email_col = col_map.get('email')
     txn_col = col_map.get('transaction_id')
     amt_col = col_map.get('amount')
@@ -342,6 +354,8 @@ def validate_csv(filepath: str) -> dict:
         # Check general missing values on other detected columns
         for field, m_col in col_map.items():
             if m_col and field not in mandatory_fields:
+                if field == 'transaction_time':
+                    continue
                 val = str(df[m_col].iloc[idx]).strip()
                 if is_missing_value(val):
                     row_errors_list[idx].append({
@@ -351,11 +365,18 @@ def validate_csv(filepath: str) -> dict:
                     integrity_affected_indices.add(idx)
                     
         # B. Duplicate Check
-        if run_checks['duplicates'] and txn_col and duplicate_ids_mask.iloc[idx]:
+        if run_checks['duplicates'] and txn_col in dup_results.get('business_key_columns', []) and duplicate_ids_mask.iloc[idx]:
             val = str(df[txn_col].iloc[idx]).strip()
             row_errors_list[idx].append({
                 'column': txn_col, 'field': 'transaction_id',
                 'message': f"Duplicate transaction ID: {val}", 'severity': 'ERROR'
+            })
+            duplicates_affected_indices.add(idx)
+
+        if run_checks['duplicates'] and duplicate_business_mask.iloc[idx]:
+            row_warnings_list[idx].append({
+                'column': 'Entire_Row', 'field': 'duplicate_record',
+                'message': 'Duplicate Record Detected', 'severity': 'WARNING'
             })
             duplicates_affected_indices.add(idx)
             
@@ -396,7 +417,9 @@ def validate_csv(filepath: str) -> dict:
         if date_col:
             val = str(df[date_col].iloc[idx]).strip()
             if val and not is_missing_value(val):
-                if not validate_date(val):
+                c_val = str(df[country_col].iloc[idx]).strip() if country_col else ""
+                row_dayfirst = dayfirst_for_country(c_val)
+                if not validate_date(val, dayfirst=row_dayfirst):
                     row_errors_list[idx].append({
                         'column': date_col, 'field': 'transaction_date',
                         'message': f"Invalid date format: {val}", 'severity': 'ERROR'
@@ -404,14 +427,34 @@ def validate_csv(filepath: str) -> dict:
                     date_affected_indices.add(idx)
                 else:
                     # check for future/ancient warnings
-                    date_warns = check_date_warnings(val)
+                    date_warns = check_date_warnings(val, dayfirst=row_dayfirst)
                     for dw in date_warns:
                         row_warnings_list[idx].append({
                             'column': date_col, 'field': 'transaction_date',
                             'message': dw['message'], 'severity': dw['severity']
                         })
                         
-        # F. Amount check
+        # F. Time validation
+        if time_col:
+            val = str(df[time_col].iloc[idx]).strip()
+            if is_missing_value(val):
+                date_val = str(df[date_col].iloc[idx]).strip() if date_col else ""
+                extracted_time, _, _ = normalize_time(date_val)
+                if extracted_time != 'ERROR':
+                    continue
+                row_errors_list[idx].append({
+                    'column': time_col, 'field': 'transaction_time',
+                    'message': "Missing Time", 'severity': 'ERROR'
+                })
+                time_affected_indices.add(idx)
+            elif not validate_time(val):
+                row_errors_list[idx].append({
+                    'column': time_col, 'field': 'transaction_time',
+                    'message': f"Invalid Time: {val}", 'severity': 'ERROR'
+                })
+                time_affected_indices.add(idx)
+
+        # G. Amount check
         if amt_col and dataset_type != "Customer Dataset":
             val = str(df[amt_col].iloc[idx]).strip()
             if val and not is_missing_value(val):
@@ -430,7 +473,7 @@ def validate_csv(filepath: str) -> dict:
                         })
                         integrity_affected_indices.add(idx)
                         
-        # G. Currency check
+        # H. Currency check
         if curr_col and run_checks['currency']:
             val = str(df[curr_col].iloc[idx]).strip()
             if val and not is_missing_value(val):
@@ -441,7 +484,7 @@ def validate_csv(filepath: str) -> dict:
                     })
                     curr_affected_indices.add(idx)
                     
-        # H. Payment mode check
+        # I. Payment mode check
         if pay_col and run_checks['payment_mode']:
             val = str(df[pay_col].iloc[idx]).strip()
             if val and not is_missing_value(val):
@@ -452,7 +495,7 @@ def validate_csv(filepath: str) -> dict:
                     })
                     pay_affected_indices.add(idx)
                     
-        # I. Printable text/name integrity check
+        # J. Printable text/name integrity check
         name_col = col_map.get('customer_name')
         if name_col:
             val = str(df[name_col].iloc[idx]).strip()
@@ -481,9 +524,15 @@ def validate_csv(filepath: str) -> dict:
         
     set_status('phone', phone_affected_indices, run_checks['phone'] and phone_col is not None)
     set_status('date', date_affected_indices, run_checks['date'] and date_col is not None)
+    set_status('time', time_affected_indices, run_checks['time'] and time_col is not None)
     set_status('mandatory', mandatory_affected_indices, run_checks['mandatory'])
     set_status('integrity', integrity_affected_indices, run_checks['integrity'])
-    set_status('duplicates', duplicates_affected_indices, run_checks['duplicates'] and txn_col is not None)
+    duplicates_active = (
+        run_checks['duplicates']
+        and bool(dup_results.get('business_key_columns'))
+        and (dataset_type != "Customer Dataset" or dup_results['duplicate_business_count'] > 0)
+    )
+    set_status('duplicates', duplicates_affected_indices, duplicates_active)
     set_status('currency', curr_affected_indices, run_checks['currency'] and curr_col is not None)
     set_status('payment_mode', pay_affected_indices, run_checks['payment_mode'] and pay_col is not None)
     set_status('email', email_affected_indices, run_checks['email'] and email_col is not None)
@@ -563,14 +612,21 @@ def validate_csv(filepath: str) -> dict:
                     if len(phone_invalid_examples) >= 5:
                         break
 
+    # Time profiling stats
+    time_invalid_count = len(time_affected_indices)
+    time_invalid_examples = []
+    if time_col:
+        invalid_mask = df[time_col].apply(lambda x: not validate_time(x) if x and not is_missing_value(x) else False)
+        time_invalid_examples = list(df[time_col][invalid_mask].unique()[:5])
+
     # Calculate Quality Scores
     # Completeness
     completeness_score = overall_completeness_score
     
     # Uniqueness
     uniq_scores = []
-    if txn_col and run_checks['duplicates']:
-        uniq_scores.append(100.0 * (total_records - dup_results['duplicate_ids_count']) / total_records if total_records > 0 else 100.0)
+    if run_checks['duplicates']:
+        uniq_scores.append(100.0 * (total_records - dup_results['duplicate_business_count']) / total_records if total_records > 0 else 100.0)
     if email_col:
         uniq_scores.append(100.0 * (total_records - dup_results['duplicate_emails_count']) / total_records if total_records > 0 else 100.0)
     if phone_col:
@@ -591,6 +647,10 @@ def validate_csv(filepath: str) -> dict:
         date_present = (df[date_col] != '').sum()
         d_val = 100.0 * (date_present - len(date_affected_indices)) / date_present if date_present > 0 else 100.0
         val_scores.append(d_val)
+    if time_col:
+        time_present = (df[time_col] != '').sum()
+        t_val = 100.0 * (time_present - len(time_affected_indices)) / time_present if time_present > 0 else 100.0
+        val_scores.append(t_val)
     if curr_col and run_checks['currency']:
         curr_present = (df[curr_col] != '').sum()
         c_val = 100.0 * (curr_present - len(curr_affected_indices)) / curr_present if curr_present > 0 else 100.0
@@ -625,9 +685,15 @@ def validate_csv(filepath: str) -> dict:
             if 'before year 2000' in msg:
                 return "Ancient Date"
             return "Invalid Date"
+        if field == 'transaction_time':
+            if 'Missing' in msg:
+                return "Missing Time"
+            return "Invalid Time"
         if field == 'transaction_id':
             if 'Duplicate' in msg:
                 return "Duplicate Transaction"
+        if field == 'duplicate_record':
+            return "Duplicate Business Record"
         if field == 'amount':
             if 'Negative' in msg:
                 return "Negative Amount"
@@ -667,10 +733,19 @@ def validate_csv(filepath: str) -> dict:
                 issues_dict[key]['examples'].append(val_extracted)
                 
     issue_summary = list(issues_dict.values())
+    validation_logs = []
+    for idx in range(total_records):
+        for issue in row_errors_list[idx] + row_warnings_list[idx]:
+            validation_logs.append({
+                'row': idx + 1,
+                'column': issue.get('column'),
+                'message': issue.get('message'),
+                'severity': issue.get('severity', 'ERROR')
+            })
 
     # Build legacy-compatible validation_results
     validation_results = {}
-    for key in ['phone', 'date', 'duplicates', 'currency', 'payment_mode', 'country', 'integrity', 'email']:
+    for key in ['phone', 'date', 'time', 'duplicates', 'currency', 'payment_mode', 'country', 'integrity', 'email']:
         validation_results[key] = {
             'status': rule_status.get(key, 'SKIPPED'),
             'affectedRows': affected_rows.get(key, 0)
@@ -726,15 +801,23 @@ def validate_csv(filepath: str) -> dict:
             'invalid_count': phone_invalid_count,
             'examples': phone_invalid_examples
         },
+        'time_profile': {
+            'invalid_count': time_invalid_count,
+            'examples': time_invalid_examples,
+            'missing_count': int((df[time_col] == '').sum() if time_col else 0)
+        },
         'duplicate_profile': {
             'duplicate_ids_count': dup_results['duplicate_ids_count'],
             'duplicate_ids_examples': dup_results['duplicate_ids_examples'],
             'duplicate_emails_count': dup_results['duplicate_emails_count'],
             'duplicate_emails_examples': dup_results['duplicate_emails_examples'],
             'duplicate_phones_count': dup_results['duplicate_phones_count'],
-            'duplicate_phones_examples': dup_results['duplicate_phones_examples']
+            'duplicate_phones_examples': dup_results['duplicate_phones_examples'],
+            'duplicate_business_count': dup_results['duplicate_business_count'],
+            'business_key_columns': dup_results['business_key_columns']
         },
-        'issue_summary': issue_summary
+        'issue_summary': issue_summary,
+        'validation_logs': validation_logs
     }
     
     return results

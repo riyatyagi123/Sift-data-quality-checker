@@ -92,6 +92,94 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function getPassRate(totalRecords, profile) {
+        if (!profile || totalRecords <= 0) return 100;
+        const invalidCount = profile.invalid_count !== undefined ? profile.invalid_count : 0;
+        return Math.round(((totalRecords - invalidCount) / totalRecords) * 1000) / 10;
+    }
+
+    function allExpectationSuitesPassed(ruleStatus) {
+        return Object.values(ruleStatus || {}).every(status => status === 'PASSED' || status === 'SKIPPED');
+    }
+
+    function detectMainIssue(data, scores) {
+        const totalRecords = data.total_records !== undefined ? data.total_records : 0;
+        const successRate = data.success_rate !== undefined ? data.success_rate : 100;
+        const phonePassRate = getPassRate(totalRecords, data.phone_profile);
+        const datePassRate = getPassRate(totalRecords, data.date_profile);
+        const timePassRate = getPassRate(totalRecords, data.time_profile);
+        const ruleStatus = data.rule_status || {};
+
+        const isHealthy =
+            scores.completeness >= 99 &&
+            scores.validity >= 99 &&
+            scores.uniqueness >= 99 &&
+            successRate >= 99 &&
+            allExpectationSuitesPassed(ruleStatus);
+
+        if (isHealthy) return 'No major issues';
+
+        const issues = [
+            {
+                active: scores.completeness < 95 || ruleStatus.mandatory === 'FAILED',
+                label: 'Missing required values',
+                priority: 1,
+                impact: 100 - scores.completeness
+            },
+            {
+                active: scores.uniqueness < 80 || ruleStatus.duplicates === 'FAILED',
+                label: 'High duplicate rate detected',
+                priority: 2,
+                impact: 100 - scores.uniqueness
+            },
+            {
+                active: phonePassRate < 90 || ruleStatus.phone === 'FAILED',
+                label: 'Phone validation failures',
+                priority: 3,
+                impact: 100 - phonePassRate
+            },
+            {
+                active: datePassRate < 90 || ruleStatus.date === 'FAILED',
+                label: 'Date validation failures',
+                priority: 4,
+                impact: 100 - datePassRate
+            },
+            {
+                active: timePassRate < 90 || ruleStatus.time === 'FAILED',
+                label: 'Time validation failures',
+                priority: 5,
+                impact: 100 - timePassRate
+            },
+            {
+                active: successRate < 80,
+                label: 'Large number of invalid records',
+                priority: 6,
+                impact: 100 - successRate
+            },
+            {
+                active: scores.validity < 90 || ruleStatus.integrity === 'FAILED',
+                label: 'Data format inconsistencies',
+                priority: 7,
+                impact: 100 - scores.validity
+            }
+        ].filter(issue => issue.active);
+
+        if (issues.length > 0) {
+            issues.sort((a, b) => a.priority - b.priority || b.impact - a.impact);
+            return issues[0].label;
+        }
+
+        if (scores.completeness < 99) return 'Missing required values';
+        if (scores.uniqueness < 99) return 'High duplicate rate detected';
+        if (phonePassRate < 99) return 'Phone validation failures';
+        if (datePassRate < 99) return 'Date validation failures';
+        if (timePassRate < 99) return 'Time validation failures';
+        if (successRate < 99) return 'Large number of invalid records';
+        if (scores.validity < 99) return 'Data format inconsistencies';
+
+        return 'Data format inconsistencies';
+    }
+
     function populateDashboard(data) {
         // --- 0. Top Summary Cards Data Binding & Header Metadata ---
         const cardTotalRows = document.getElementById('cardTotalRows');
@@ -216,7 +304,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const qualitySummaryLabel = document.getElementById('qualitySummaryLabel');
         if (qualitySummaryLabel) {
-            qualitySummaryLabel.textContent = data.quality_rating || 'Fair Quality';
+            qualitySummaryLabel.textContent = data.quality_rating || 'Good';
+        }
+
+        const qualityMetrics = [
+            { name: 'Completeness', score: comp },
+            { name: 'Validity', score: val },
+            { name: 'Uniqueness', score: uniq }
+        ];
+        const highestMetric = qualityMetrics.reduce((best, metric) => metric.score > best.score ? metric : best, qualityMetrics[0]);
+        const lowestMetric = qualityMetrics.reduce((worst, metric) => metric.score < worst.score ? metric : worst, qualityMetrics[0]);
+        const qualityHighestMetric = document.getElementById('qualityHighestMetric');
+        const qualityLowestMetric = document.getElementById('qualityLowestMetric');
+        const qualityMainIssue = document.getElementById('qualityMainIssue');
+
+        if (qualityHighestMetric) {
+            qualityHighestMetric.textContent = `${highestMetric.name} (${highestMetric.score}%)`;
+        }
+        if (qualityLowestMetric) {
+            qualityLowestMetric.textContent = `${lowestMetric.name} (${lowestMetric.score}%)`;
+        }
+        if (qualityMainIssue) {
+            qualityMainIssue.textContent = detectMainIssue(data, {
+                completeness: comp,
+                validity: val,
+                uniqueness: uniq
+            });
         }
 
         // --- 2. Stats Breakdown ---
@@ -639,76 +752,6 @@ document.addEventListener('DOMContentLoaded', () => {
             issueLogsSection.classList.add('hidden');
             noIssuesAlert.classList.remove('hidden');
         }
-
-        // --- 6. Render Radar Chart ---
-        const radarCanvas = document.getElementById('radarChart');
-        if (radarCanvas) {
-            if (window.myRadarChart) {
-                window.myRadarChart.destroy();
-            }
-            window.myRadarChart = new Chart(radarCanvas, {
-                type: 'radar',
-                data: {
-                    labels: ['Completeness', 'Validity', 'Uniqueness'],
-                    datasets: [{
-                        label: 'Dataset Quality Dimensions',
-                        data: [comp, val, uniq],
-                        fill: true,
-                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
-                        borderColor: 'rgb(16, 185, 129)',
-                        pointBackgroundColor: 'rgb(16, 185, 129)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(16, 185, 129)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    layout: {
-                        padding: 0
-                    },
-                    elements: {
-                        point: {
-                            radius: 2,
-                            hoverRadius: 3
-                        },
-                        line: {
-                            borderWidth: 2
-                        }
-                    },
-                    scales: {
-                        r: {
-                            angleLines: {
-                                display: true,
-                                color: 'rgba(148, 163, 184, 0.2)'
-                             },
-                             grid: {
-                                 color: 'rgba(148, 163, 184, 0.15)'
-                             },
-                             pointLabels: {
-                                 font: {
-                                     size: 9,
-                                     weight: 'bold',
-                                     family: 'sans-serif'
-                                 },
-                                 color: '#1e293b'
-                             },
-                             suggestedMin: 0,
-                             suggestedMax: 100,
-                             ticks: {
-                                 display: false
-                             }
-                         }
-                     },
-                     plugins: {
-                         legend: {
-                             display: false
-                         }
-                     }
-                 }
-             });
-         }
 
         // Calculate expectations evaluated
         let expectationsCount = 2; // Completeness and Uniqueness are always evaluated

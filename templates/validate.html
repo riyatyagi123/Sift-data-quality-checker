@@ -227,7 +227,7 @@
         <!-- SECTION 1: Data Quality Score & Dataset Profile -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <!-- Left: Quality Score Widget (5 cols) -->
-            <div class="lg:col-span-5 bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover-card relative h-full">
+            <div class="lg:col-span-5 bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col gap-5 hover-card relative h-full">
                 <div class="space-y-1">
                     <div class="flex items-center space-x-2">
                         <span class="text-sm font-bold text-sift-darkblue flex items-center select-none">
@@ -247,7 +247,7 @@
                     </span>
                 </div>
                 
-                <div class="flex flex-col sm:flex-row items-center gap-6 my-6">
+                <div class="flex flex-col sm:flex-row items-center gap-6">
                     <!-- Circular Score Gauge -->
                     <div class="relative w-36 h-36 flex items-center justify-center flex-shrink-0">
                         <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
@@ -339,9 +339,26 @@
                     </div>
                 </div>
  
-                <!-- Radar Chart -->
-                <div class="my-4 p-2 bg-slate-50/30 rounded-2xl border border-slate-100 flex justify-center items-center h-28">
-                    <canvas id="radarChart" class="w-full h-full"></canvas>
+                <!-- Validation Insights -->
+                <div class="border border-slate-100 bg-slate-50/30 rounded-xl p-3 space-y-2 flex-1">
+                    <div class="flex items-center justify-between gap-3">
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Quality Grade</span>
+                        <span id="qualitySummaryLabel" class="text-[11px] font-extrabold text-sift-darkblue">Good</span>
+                    </div>
+                    <div class="grid grid-cols-1 gap-1.5 text-[11px] font-semibold">
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-slate-400">Highest Score</span>
+                            <span id="qualityHighestMetric" class="text-slate-700 text-right">Completeness (0%)</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-slate-400">Lowest Score</span>
+                            <span id="qualityLowestMetric" class="text-slate-700 text-right">Uniqueness (0%)</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-slate-400">Main Issue</span>
+                            <span id="qualityMainIssue" class="text-slate-700 text-right">Pending analysis</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Right: Dataset Profiler (7 cols) -->
@@ -416,7 +433,6 @@
                 <span class="text-xs font-extrabold tracking-widest text-slate-400 uppercase flex items-center select-none">
                     Expectation Suite Assertions
                 </span>
-                <span class="bg-indigo-50 text-indigo-850 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">GREAT EXPECTATIONS PATTERNS</span>
                 <span class="bg-rose-50 text-rose-850 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">ACTION REQUIRED</span>
             </div>
 

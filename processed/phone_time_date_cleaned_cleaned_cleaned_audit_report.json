@@ -1,0 +1,90 @@
+[
+  {
+    "row": 2,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"3\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:45\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 3,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"4\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:45\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"7\", \"Country\": \"United States\", \"Phone_Number\": \"2125551234\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 6,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"8\", \"Country\": \"United States\", \"Phone_Number\": \"2125551234\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"15\", \"Country\": \"Singapore\", \"Phone_Number\": \"91234567\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"23:59:59\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 10,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"43\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:45\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"44\", \"Country\": \"United States\", \"Phone_Number\": \"2125551234\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:00\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 17,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"50\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"07:08:09\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 18,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"51\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:45\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 20,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"53\", \"Country\": \"Singapore\", \"Phone_Number\": \"91234567\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:45\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  },
+  {
+    "row": 23,
+    "column": "Entire_Row",
+    "original": "{\"Test_ID\": \"1\", \"Country\": \"India\", \"Phone_Number\": \"9876543210\", \"Transaction_Date\": \"2026-06-18\", \"Transaction_Time\": \"14:30:45\"}",
+    "cleaned": "DELETED",
+    "action": "Duplicate Removed",
+    "severity": "INFO"
+  }
+]

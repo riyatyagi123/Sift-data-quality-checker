@@ -18,9 +18,12 @@ from services.validator import (
     is_known_payment_mode,
     validate_currency
 )
-from services.phone_validator import clean_phone_val, load_country_rules, validate_phone
+from services.phone_validator import clean_phone_val, get_country_key, load_country_rules, validate_phone
 from services.date_validator import clean_date_val, validate_date, check_date_warnings, infer_date_format_and_confidence
+from services.time_validator import normalize_time
 from services.email_validator import validate_email
+from services.duplicate_detector import build_business_key_frame
+from services.quality_score import calculate_overall_score, classify_quality_rating
 
 logger = logging.getLogger(__name__)
 
@@ -99,6 +102,10 @@ def clean_country(val: str) -> tuple[str, bool]:
         return mapped, mapped != original
     return original, False
 
+def dayfirst_for_country(country_val: str, fallback: bool | None = None) -> bool | None:
+    """US dates are month-first; other countries keep the existing inferred behavior."""
+    return False if get_country_key(country_val) == 'US' else fallback
+
 def clean_text(val: str) -> tuple[str, bool]:
     """Removes unicode control codes, binary corruption, and trims excessive spaces."""
     if not val or pd.isna(val):
@@ -142,6 +149,45 @@ def is_empty_row(row_dict: dict) -> bool:
         if str(val).strip().lower() not in empty_indicators:
             return False
     return True
+
+def remove_cleaned_business_duplicates(output_filepath: str, duplicates_path: str, audit_trail: list) -> int:
+    """Removes duplicate business records from the fully cleaned output CSV."""
+    if not os.path.exists(output_filepath) or os.path.getsize(output_filepath) == 0:
+        return 0
+
+    cleaned_df = pd.read_csv(output_filepath, dtype=str).fillna('')
+    if cleaned_df.empty:
+        return 0
+
+    business_df, business_key_columns = build_business_key_frame(cleaned_df)
+    if not business_key_columns:
+        return 0
+
+    duplicate_mask = business_df.duplicated(keep='first')
+    duplicates_removed = int(duplicate_mask.sum())
+    if duplicates_removed == 0:
+        return 0
+
+    duplicate_rows = cleaned_df.loc[duplicate_mask].copy()
+    cleaned_df.loc[~duplicate_mask].to_csv(output_filepath, index=False)
+    duplicate_rows.to_csv(
+        duplicates_path,
+        mode='a',
+        index=False,
+        header=not os.path.exists(duplicates_path)
+    )
+
+    for original_idx, row in duplicate_rows.iterrows():
+        audit_trail.append({
+            'row': int(original_idx) + 1,
+            'column': 'Entire_Row',
+            'original': json.dumps(row.to_dict(), ensure_ascii=True),
+            'cleaned': 'DELETED',
+            'action': 'Duplicate Removed',
+            'severity': 'INFO'
+        })
+
+    return duplicates_removed
 
 # Two-pass analyzer for memory efficiency & global stats
 def analyze_csv_globally(input_filepath, col_map, column_types, dataset_type):
@@ -198,13 +244,6 @@ def analyze_csv_globally(input_filepath, col_map, column_types, dataset_type):
                 if not nums.empty:
                     med = nums.median()
                     global_imputation_data[col] = str(int(med)) if med.is_integer() else str(med)
-            elif col_type == 'Date':
-                from services.date_validator import parse_date
-                parsed_dates = valid_vals.apply(parse_date).dropna()
-                if not parsed_dates.empty:
-                    mode_date = parsed_dates.dt.strftime("%Y-%m-%d").mode()
-                    if not mode_date.empty:
-                        global_imputation_data[col] = mode_date.iloc[0]
             else:
                 mode_val = valid_vals.mode()
                 if not mode_val.empty:
@@ -254,6 +293,7 @@ def clean_csv(input_filepath: str, output_filepath: str, removed_filepath: str, 
     phone_col = col_map.get('phone_number')
     country_col = col_map.get('country')
     date_col = col_map.get('transaction_date')
+    time_col = col_map.get('transaction_time')
     email_col = col_map.get('email')
     txn_col = col_map.get('transaction_id')
     cust_col = col_map.get('customer_id')
@@ -277,6 +317,7 @@ def clean_csv(input_filepath: str, output_filepath: str, removed_filepath: str, 
         'phones_fixed': 0,
         'emails_fixed': 0,
         'dates_fixed': 0,
+        'times_fixed': 0,
         'currencies_fixed': 0,
         'countries_fixed': 0,
         'payment_modes_fixed': 0,
@@ -396,6 +437,43 @@ def clean_csv(input_filepath: str, output_filepath: str, removed_filepath: str, 
                     
                 val = str(row_dict[col_name]).strip()
                 is_missing = is_missing_value(val)
+
+                if is_missing and field == 'transaction_time':
+                    date_source_val = str(row_dict.get(date_col, '')).strip() if date_col else ''
+                    extracted_time, _, _ = normalize_time(date_source_val)
+                    if extracted_time != 'ERROR':
+                        row_dict[col_name] = extracted_time
+                        stats['times_fixed'] += 1
+                        row_was_corrected = True
+                        audit_trail.append({
+                            'row': row_num,
+                            'column': col_name,
+                            'original': date_source_val,
+                            'cleaned': extracted_time,
+                            'action': 'Time Extraction',
+                            'severity': 'INFO'
+                        })
+                        continue
+
+                    normalized_time, time_severity, time_message = normalize_time(val)
+                    row_dict[col_name] = normalized_time
+                    row_errors.append({
+                        'column': col_name,
+                        'original': val,
+                        'message': time_message,
+                        'severity': time_severity
+                    })
+                    continue
+
+                if is_missing and field == 'transaction_date':
+                    row_dict[col_name] = 'ERROR'
+                    row_errors.append({
+                        'column': col_name,
+                        'original': val,
+                        'message': 'Missing Date',
+                        'severity': 'ERROR'
+                    })
+                    continue
                 
                 # Phase 4: Optional Imputation (SMART mode only)
                 if is_missing and mode == 'SMART' and col_name in global_impute:
@@ -471,10 +549,12 @@ def clean_csv(input_filepath: str, output_filepath: str, removed_filepath: str, 
                         })
                         
                 elif field == 'transaction_date':
-                    if not validate_date(val, dayfirst=dayfirst_inferred):
+                    country_val = str(row_dict.get(country_col, '')).strip() if country_col else ''
+                    row_dayfirst = dayfirst_for_country(country_val, dayfirst_inferred)
+                    if not validate_date(val, dayfirst=row_dayfirst):
                         if mode == 'SMART':
-                            cleaned_val, corrected = clean_date(val, dayfirst=dayfirst_inferred)
-                            if corrected and validate_date(cleaned_val, dayfirst=dayfirst_inferred):
+                            cleaned_val, corrected = clean_date(val, dayfirst=row_dayfirst)
+                            if corrected and validate_date(cleaned_val, dayfirst=row_dayfirst):
                                 stats['dates_fixed'] += 1
                             else:
                                 row_errors.append({
@@ -491,7 +571,7 @@ def clean_csv(input_filepath: str, output_filepath: str, removed_filepath: str, 
                                 'severity': 'ERROR'
                             })
                     else:
-                        cleaned_val, corrected = clean_date(val, dayfirst=dayfirst_inferred)
+                        cleaned_val, corrected = clean_date(val, dayfirst=row_dayfirst)
                         if corrected:
                             stats['dates_fixed'] += 1
                             
@@ -506,12 +586,55 @@ def clean_csv(input_filepath: str, output_filepath: str, removed_filepath: str, 
                             'action': 'date_standardization',
                             'severity': 'INFO'
                         })
+
+                    if time_col and time_col in row_dict and is_missing_value(row_dict.get(time_col)):
+                        extracted_time, _, _ = normalize_time(val)
+                        if extracted_time != 'ERROR':
+                            row_dict[time_col] = extracted_time
+                            stats['times_fixed'] += 1
+                            row_was_corrected = True
+                            audit_trail.append({
+                                'row': row_num,
+                                'column': time_col,
+                                'original': val,
+                                'cleaned': extracted_time,
+                                'action': 'Time Extraction',
+                                'severity': 'INFO'
+                            })
                         
                     # Check warnings on dates
-                    if validate_date(cleaned_val, dayfirst=dayfirst_inferred):
-                        date_warns = check_date_warnings(cleaned_val, dayfirst=dayfirst_inferred)
+                    if validate_date(cleaned_val, dayfirst=row_dayfirst):
+                        date_warns = check_date_warnings(cleaned_val, dayfirst=row_dayfirst)
                         for dw in date_warns:
                             row_warnings.append(dw['message'])
+
+                elif field == 'transaction_time':
+                    normalized_time, time_severity, time_message = normalize_time(val)
+                    if time_severity == 'ERROR':
+                        row_dict[col_name] = normalized_time
+                        row_errors.append({
+                            'column': col_name,
+                            'original': val,
+                            'message': time_message,
+                            'severity': time_severity
+                        })
+                    else:
+                        cleaned_val = normalized_time
+                        corrected = cleaned_val != val
+                        if corrected:
+                            stats['times_fixed'] += 1
+
+                    if corrected:
+                        row_dict[col_name] = cleaned_val
+                        row_was_corrected = True
+                        audit_trail.append({
+                            'row': row_num,
+                            'column': col_name,
+                            'original': val,
+                            'cleaned': cleaned_val,
+                            'action': time_message,
+                            'severity': time_severity
+                        })
                             
                 elif field == 'email':
                     if not validate_email(val):
@@ -731,9 +854,40 @@ def clean_csv(input_filepath: str, output_filepath: str, removed_filepath: str, 
         except Exception:
             pd.DataFrame().to_csv(removed_filepath, index=False)
             
-    # Calculate success rate as cleaning efficiency: (retained + corrected) / processed
-    total = stats['total_processed']
-    stats['success_rate'] = min(100.0, round(((stats['rows_retained'] + stats['rows_corrected']) / total) * 100, 1)) if total > 0 else 100.0
+    final_duplicates_removed = remove_cleaned_business_duplicates(output_filepath, duplicates_path, audit_trail)
+    if final_duplicates_removed:
+        stats['duplicates_removed'] += final_duplicates_removed
+        stats['rows_removed'] += final_duplicates_removed
+        stats['rows_retained'] = max(0, stats['rows_retained'] - final_duplicates_removed)
+
+    final_total = stats['rows_retained']
+    invalid_rows = 0
+    if mode == 'SOFT' and os.path.exists(output_filepath):
+        try:
+            final_df = pd.read_csv(output_filepath, dtype=str).fillna('')
+            if 'status' in final_df.columns:
+                invalid_rows = int((final_df['status'] == 'ERROR').sum())
+        except Exception:
+            invalid_rows = 0
+
+    valid_rows = max(0, final_total - invalid_rows)
+    uniqueness_score = 100.0
+    validity_score = round((valid_rows / final_total) * 100, 1) if final_total > 0 else 100.0
+    completeness_score = 100.0
+    quality_score = calculate_overall_score(completeness_score, validity_score, uniqueness_score)
+
+    stats['total_records'] = final_total
+    stats['total_rows'] = final_total
+    stats['valid_rows'] = valid_rows
+    stats['invalid_rows'] = invalid_rows
+    stats['unique_records'] = final_total
+    stats['unique_rows'] = final_total
+    stats['uniqueness_score'] = uniqueness_score
+    stats['validity_score'] = validity_score
+    stats['completeness_score'] = completeness_score
+    stats['quality_score'] = quality_score
+    stats['quality_rating'] = classify_quality_rating(quality_score)
+    stats['success_rate'] = validity_score
     
     stats['detected_date_format'] = detected_format
     stats['date_confidence_score'] = f"{confidence}%" if confidence > 0 else "0%"

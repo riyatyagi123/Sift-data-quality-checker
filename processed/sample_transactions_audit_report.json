@@ -321,19 +321,19 @@
   },
   {
     "row": 15,
+    "column": "phone_number",
+    "original": "447911123457",
+    "cleaned": "07911123457",
+    "action": "phone_normalization",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
     "column": "payment_mode",
     "original": "CARD",
     "cleaned": "Credit Card",
     "action": "payment_mode_mapping",
     "severity": "INFO"
-  },
-  {
-    "row": 15,
-    "column": "phone_number",
-    "original": "447911999999",
-    "cleaned": "ERROR",
-    "action": "Invalid phone format",
-    "severity": "ERROR"
   },
   {
     "row": 15,

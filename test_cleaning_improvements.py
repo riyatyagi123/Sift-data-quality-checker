@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from services.cleaner import clean_name, clean_csv
+from services.validator import validate_csv
 from services.date_validator import infer_date_format_and_confidence
 
 def test_abbreviations():
@@ -98,6 +99,66 @@ def test_duplicate_shortcircuit():
     row2_actions = [a for a in audit_trail if a['row'] == 2 and a['action'] != 'duplicate_removal']
     assert len(row2_actions) == 0, f"Expected 0 actions on the duplicate row except duplicate_removal, got {row2_actions}"
 
+def test_business_duplicates_ignore_identifier_columns():
+    os.makedirs("processed", exist_ok=True)
+    df = pd.DataFrame([
+        [1, "IN", "9876543210", "2026-06-18", "14:30:00"],
+        [3, "IN", "9876543210", "2026-06-18", "14:30:00"],
+        [4, "IN", "+919876543210", "18-06-2026", "02:30 PM"],
+        [5, "US", "2125551234", "06/18/2026", "02:30 PM"],
+    ], columns=["Test_ID", "Country", "Phone_Number", "Transaction_Date", "Transaction_Time"])
+
+    input_path = "processed/test_business_duplicates.csv"
+    output_path = "processed/test_business_duplicates_cleaned.csv"
+    removed_path = "processed/test_business_duplicates_removed.csv"
+    df.to_csv(input_path, index=False)
+
+    validation = validate_csv(input_path)
+    duplicate_validation_logs = [
+        log for log in validation.get('validation_logs', [])
+        if log['column'] == 'Entire_Row' and log['message'] == 'Duplicate Record Detected'
+    ]
+    assert len(duplicate_validation_logs) == 2, f"Expected 2 duplicate validation warnings, got {duplicate_validation_logs}"
+    assert validation['duplicate_profile']['duplicate_business_count'] == 2
+
+    res = clean_csv(input_path, output_path, removed_path)
+    cleaned_df = pd.read_csv(output_path, dtype=str)
+
+    assert len(cleaned_df) == 2, f"Expected 2 final rows, got {len(cleaned_df)}"
+    assert cleaned_df.iloc[0]["Test_ID"] == "1", "Expected first business duplicate occurrence to be kept"
+    assert not cleaned_df.duplicated(subset=["Country", "Phone_Number", "Transaction_Date", "Transaction_Time"]).any()
+    assert res['stats']['duplicates_removed'] == 2, f"Expected 2 final duplicates removed, got {res['stats']['duplicates_removed']}"
+    assert res['stats']['total_records'] == 2
+    assert res['stats']['unique_records'] == 2
+    assert res['stats']['uniqueness_score'] == 100.0
+
+    duplicate_cleaning_logs = [
+        log for log in res['audit_trail']
+        if log['column'] == 'Entire_Row' and log['action'] == 'Duplicate Removed' and log['severity'] == 'INFO'
+    ]
+    assert len(duplicate_cleaning_logs) == 2, f"Expected 2 duplicate cleaning logs, got {duplicate_cleaning_logs}"
+
+def test_numeric_first_column_does_not_block_duplicate_cleanup():
+    os.makedirs("processed", exist_ok=True)
+    df = pd.DataFrame([
+        [1, "India", "9876543210", "18-06-2026", "14:30:45"],
+        [24, "India", "9876543210", "18-06-2026", "14:30:45"],
+        [25, "Singapore", "91234567", "18-06-2026", "23:59:59"],
+    ], columns=["Record_No", "Country", "Phone_Number", "Transaction_Date", "Transaction_Time"])
+
+    input_path = "processed/test_numeric_id_duplicates.csv"
+    output_path = "processed/test_numeric_id_duplicates_cleaned.csv"
+    removed_path = "processed/test_numeric_id_duplicates_removed.csv"
+    df.to_csv(input_path, index=False)
+
+    res = clean_csv(input_path, output_path, removed_path)
+    cleaned_df = pd.read_csv(output_path, dtype=str)
+
+    assert len(cleaned_df) == 2, f"Expected 2 final rows, got {len(cleaned_df)}"
+    assert cleaned_df.iloc[0]["Record_No"] == "1"
+    assert "24" not in set(cleaned_df["Record_No"])
+    assert res['stats']['duplicates_removed'] == 1
+
 if __name__ == "__main__":
     print("Running new cleaning improvements tests...")
     test_abbreviations()
@@ -110,4 +171,8 @@ if __name__ == "__main__":
     print("Libphonenumber engine tests passed.")
     test_duplicate_shortcircuit()
     print("Duplicate short-circuit & precise audit log passed.")
+    test_business_duplicates_ignore_identifier_columns()
+    print("Business duplicate validation and cleanup passed.")
+    test_numeric_first_column_does_not_block_duplicate_cleanup()
+    print("Numeric row identifier duplicate cleanup passed.")
     print("All new verification tests passed successfully!")

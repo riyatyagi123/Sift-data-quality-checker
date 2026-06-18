@@ -4,6 +4,7 @@ import numpy as np
 from datetime import datetime
 from services.phone_validator import normalize_phone_value
 from services.date_validator import parse_date
+from services.time_validator import parse_time
 
 def classify_dataset_from_headers(headers: list) -> str:
     """Classifies dataset type based on header clues."""
@@ -95,7 +96,17 @@ def infer_column_type(df: pd.DataFrame, col: str) -> str:
     if all(re.match(email_regex, x) for x in sample if x):
         return 'Email'
         
-    # 2. Date check
+    # 2. Time check
+    time_successes = 0
+    for x in sample:
+        if not x:
+            continue
+        if parse_time(x):
+            time_successes += 1
+    if time_successes > len(sample) * 0.7:
+        return 'Time'
+
+    # 3. Date check
     date_successes = 0
     for x in sample:
         if not x:
@@ -105,7 +116,7 @@ def infer_column_type(df: pd.DataFrame, col: str) -> str:
     if date_successes > len(sample) * 0.7:
         return 'Date'
         
-    # 3. Numeric check
+    # 4. Numeric check
     numeric_successes = 0
     for x in sample:
         if not x:
@@ -192,6 +203,15 @@ def generate_column_profiles(df: pd.DataFrame, col_map: dict) -> dict:
                     'maximum_date': parsed_dates.max().strftime("%Y-%m-%d"),
                     'future_dates_count': future_count,
                     'ancient_dates_count': ancient_count
+                }
+
+        # Time Stats
+        elif col_type == 'Time':
+            parsed_times = non_empty.apply(parse_time).dropna()
+            if not parsed_times.empty:
+                col_profile['stats'] = {
+                    'minimum_time': parsed_times.min().strftime("%H:%M:%S"),
+                    'maximum_time': parsed_times.max().strftime("%H:%M:%S")
                 }
                 
         profiles[col] = col_profile

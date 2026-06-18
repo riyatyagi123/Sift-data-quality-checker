@@ -1,0 +1,98 @@
+[
+  {
+    "row": 2,
+    "column": "Transaction_Time",
+    "original": "02:30:45 PM",
+    "cleaned": "14:30:45",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 5,
+    "column": "Transaction_Time",
+    "original": "24:00:00",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 6,
+    "column": "Transaction_Time",
+    "original": "25:30:45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 7,
+    "column": "Transaction_Time",
+    "original": "14:61:45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 8,
+    "column": "Transaction_Time",
+    "original": "12:30 PM",
+    "cleaned": "12:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 9,
+    "column": "Transaction_Time",
+    "original": "11:30:60",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  },
+  {
+    "row": 10,
+    "column": "Transaction_Time",
+    "original": "02:30:45 PM",
+    "cleaned": "14:30:45",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 11,
+    "column": "Transaction_Time",
+    "original": "2:5:9",
+    "cleaned": "02:05:09",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 12,
+    "column": "Transaction_Time",
+    "original": "02:30 PM",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 13,
+    "column": "Transaction_Time",
+    "original": "14:30",
+    "cleaned": "14:30:00",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 14,
+    "column": "Transaction_Time",
+    "original": "14:30:45.123",
+    "cleaned": "14:30:45",
+    "action": "Time Standardization",
+    "severity": "INFO"
+  },
+  {
+    "row": 15,
+    "column": "Transaction_Time",
+    "original": "14-30-45",
+    "cleaned": "ERROR",
+    "action": "Invalid Time",
+    "severity": "ERROR"
+  }
+]

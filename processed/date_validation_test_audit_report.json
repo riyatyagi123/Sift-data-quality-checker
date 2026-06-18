@@ -139,32 +139,16 @@
     "row": 23,
     "column": "transaction_date",
     "original": "",
-    "cleaned": "0000-01-01",
-    "action": "missing_imputation",
-    "severity": "INFO"
-  },
-  {
-    "row": 23,
-    "column": "transaction_date",
-    "original": "0000-01-01",
     "cleaned": "ERROR",
-    "action": "Invalid date",
+    "action": "Missing Date",
     "severity": "ERROR"
   },
   {
     "row": 24,
     "column": "transaction_date",
     "original": "",
-    "cleaned": "0000-01-01",
-    "action": "missing_imputation",
-    "severity": "INFO"
-  },
-  {
-    "row": 24,
-    "column": "transaction_date",
-    "original": "0000-01-01",
     "cleaned": "ERROR",
-    "action": "Invalid date",
+    "action": "Missing Date",
     "severity": "ERROR"
   },
   {
