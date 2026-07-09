@@ -2,6 +2,8 @@
 
 Sift Data Validator is a production-ready, high-performance Flask web application built to parse, validate, clean, and chunk large CSV transaction datasets (up to 1M rows, 50MB). It features a clean, responsive layout with TailwindCSS, real-time AJAX uploads, interactive Chart.js quality reports, and file export packages.
 
+Live Link: https://sift-data-quality-checker-wice.onrender.com/
+
 ---
 
 ## Features
